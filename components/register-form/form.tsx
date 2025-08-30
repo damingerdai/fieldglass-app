@@ -18,12 +18,13 @@ import {
 } from "../ui/form";
 import { Loader2Icon } from "lucide-react";
 import { toast } from "sonner";
-import { redirect } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 export function RegisterForm({
   className,
   ...props
 }: React.ComponentProps<"form">) {
+  const router = useRouter();
   const form = useForm({
     resolver: zodResolver(schemas),
     defaultValues: {
@@ -50,7 +51,7 @@ export function RegisterForm({
     if (!state.errors) {
       if (state.message) {
         toast.success(state.message);
-        redirect("/login");
+        router.push("/login");
       } else {
         form.clearErrors();
       }
