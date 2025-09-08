@@ -69,7 +69,7 @@ export function RegisterForm({
     if (typeof state.errors === "string") {
       toast.error(state.errors);
     }
-  }, [state, form]);
+  }, [state, router, form]);
 
   return (
     <Form {...form}>
@@ -136,7 +136,7 @@ export function RegisterForm({
           </Button>
         </div>
         <div className="mt-4 text-center text-sm">
-          Don&apos; have an account?{" "}
+          Have an account?{" "}
           <a href="/login" className="underline underline-offset-4">
             Sign in
           </a>
