@@ -1,3 +1,16 @@
+"use client";
+
+import {
+  Sidebar,
+  SidebarInset,
+  SidebarProvider,
+} from "@/components/ui/sidebar";
+
 export default function Page() {
-  return <div>hello, this is dashboard</div>;
+  return (
+    <SidebarProvider>
+      <Sidebar />
+      <SidebarInset>hello this is dashboard view</SidebarInset>
+    </SidebarProvider>
+  );
 }
