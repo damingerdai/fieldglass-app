@@ -1,4 +1,4 @@
-FROM oven/bun:1.2.23 as base
+FROM oven/bun:1.3.0 as base
 
 WORKDIR /app
 
@@ -12,7 +12,7 @@ RUN bun install && bun run build
 
 RUN bun install --production
 
-FROM oven/bun:1.2.23-slim
+FROM oven/bun:1.3.0-slim
 
 WORKDIR /app
 
