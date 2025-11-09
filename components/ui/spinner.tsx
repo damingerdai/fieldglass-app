@@ -1,59 +1,16 @@
-import * as React from "react";
-import { Slot } from "@radix-ui/react-slot";
-import { cva, type VariantProps } from "class-variance-authority";
-import { cn } from "@/lib/utils";
-import { Loader2 } from "lucide-react";
+import { Loader2Icon } from "lucide-react"
 
-const spinnerVariants = cva(
-  "inline-flex flex-col items-center justify-center",
-  {
-    variants: {
-      show: {
-        true: "flex",
-        false: "hidden",
-      },
-    },
-    defaultVariants: {
-      show: true,
-    },
-  },
-);
+import { cn } from "@/lib/utils"
 
-const loaderVariants = cva("animate-spin text-primary", {
-  variants: {
-    size: {
-      sm: "size-6",
-      default: "size-8",
-      lg: "size-12",
-    },
-  },
-  defaultVariants: {
-    size: "default",
-  },
-});
-
-interface SpinnerProps
-  extends React.HTMLAttributes<HTMLElement>,
-    VariantProps<typeof spinnerVariants>,
-    VariantProps<typeof loaderVariants> {
-  asChild?: boolean;
-}
-
-function Spinner({
-  className,
-  size,
-  show,
-  asChild = false,
-  ...props
-}: SpinnerProps) {
-  const Comp = asChild ? Slot : "span";
-
+function Spinner({ className, ...props }: React.ComponentProps<"svg">) {
   return (
-    <Comp className={cn(spinnerVariants({ show }), className)} {...props}>
-      <Loader2 className={loaderVariants({ size })} />
-      {props.children}
-    </Comp>
-  );
+    <Loader2Icon
+      role="status"
+      aria-label="Loading"
+      className={cn("size-4 animate-spin", className)}
+      {...props}
+    />
+  )
 }
 
-export { Spinner, spinnerVariants, loaderVariants };
+export { Spinner }

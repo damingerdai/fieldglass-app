@@ -1,9 +1,9 @@
-import { Spinner } from "@/components/ui/spinner";
+import { AppSpinner } from "@/components/app-sinner";
 
 export default function Loading() {
   return (
     <div className="w-full flex pt-4 justify-center">
-      <Spinner />{" "}
+      <AppSpinner />
     </div>
   );
 }
