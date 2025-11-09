@@ -7,7 +7,7 @@ import {
   SidebarMenuItem,
 } from "./ui/sidebar";
 import { SidebarMenuButton } from "./app-sidebar-button";
-import { HomeIcon } from "lucide-react";
+import { HomeIcon, TreePalm } from "lucide-react";
 import Link from "next/link";
 
 export const Aside: React.FC = () => {
@@ -19,9 +19,17 @@ export const Aside: React.FC = () => {
           <SidebarMenu>
             <SidebarMenuItem>
               <SidebarMenuButton asChild>
-                <Link href="dashboard">
+                <Link href="/dashboard">
                   <HomeIcon />
                   <span>Dashboard</span>
+                </Link>
+              </SidebarMenuButton>
+            </SidebarMenuItem>
+            <SidebarMenuItem>
+              <SidebarMenuButton asChild>
+                <Link href="/vacation">
+                  <TreePalm />
+                  <span>Vacation</span>
                 </Link>
               </SidebarMenuButton>
             </SidebarMenuItem>
