@@ -10,6 +10,7 @@ import { fetchUserVacations } from "@/lib/vacation-data";
 import { format } from "date-fns";
 import Link from "next/link";
 import { VacationMoreMenu } from "@/components/vacation-more-menu";
+import { VacationCard } from "@/components/vacation-card";
 
 export default async function Page() {
   const vacations = await fetchUserVacations();
@@ -37,30 +38,7 @@ export default async function Page() {
       {vacations && vacations.length > 0 ? (
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
           {vacations.map((vacation) => (
-            <Card key={vacation.id}>
-              <CardHeader>
-                <CardTitle className="capitalize">
-                  {vacation.leave_type.replace('_', ' ')}
-                </CardTitle>
-                <CardDescription>
-                  {vacation.notes}
-                </CardDescription>
-                <CardAction>
-                  <VacationMoreMenu vacationId={vacation.id}/>
-                </CardAction>
-              </CardHeader>
-              <CardContent className="text-sm space-y-2">
-                <p>
-                  <strong>Duration:</strong> {format(vacation.start_date, "PPP")} to {format(vacation.end_date, "PPP")}
-                </p>
-                <p>
-                  <strong>Total Days:</strong> {vacation.days}
-                </p>
-                <p>
-                  <strong>Notes:</strong> {vacation.notes || "N/A"}
-                </p>
-              </CardContent>
-            </Card>
+             <VacationCard key={vacation.id} vacation={vacation}/>
           ))}
         </div>
       ) : (
