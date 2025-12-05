@@ -5,10 +5,11 @@ import {
   BreadcrumbPage,
 } from "@/components/ui/breadcrumb";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardAction, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { fetchUserVacations } from "@/lib/vacation-data";
 import { format } from "date-fns";
 import Link from "next/link";
+import { VacationMoreMenu } from "@/components/vacation-more-menu";
 
 export default async function Page() {
   const vacations = await fetchUserVacations();
@@ -41,6 +42,12 @@ export default async function Page() {
                 <CardTitle className="capitalize">
                   {vacation.leave_type.replace('_', ' ')}
                 </CardTitle>
+                <CardDescription>
+                  {vacation.notes}
+                </CardDescription>
+                <CardAction>
+                  <VacationMoreMenu vacationId={vacation.id}/>
+                </CardAction>
               </CardHeader>
               <CardContent className="text-sm space-y-2">
                 <p>

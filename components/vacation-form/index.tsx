@@ -44,7 +44,7 @@ export function CreateVacationForm({
     return now;
   }, []);
   const defaultValues: CreateVacationData = {
-    leave_type: "",
+    leave_type: "annual_leave",
     start_date: defaultStartDate,
     end_date: new Date(),
     days: 1,
