@@ -3,15 +3,28 @@ import { z } from "zod";
 
 export const schemas = z.object({
   leave_type: z.enum(LEAVE_TYPE_KEYS, {
-     error: "Please select a valid leave type from the list."
+    error: "Please select a valid leave type from the list."
   }),
   start_date: z.date({
-    error: "Start date must be a valid date.",  
+    error: "Start date must be a valid date.",
   }),
   end_date: z.date({
-    error: "End date must be a valid date.",  
+    error: "End date must be a valid date.",
   }),
-  days: z.number().min(1, { message: "The minimum number of days is 1." }),
+  days: z.preprocess(
+    (value) => {
+      if (value === "") {
+        return undefined;
+      }
+      if (typeof value === "string") {
+        const parsed = parseFloat(value);
+        // Return the number if valid, otherwise return the original value (to fail validation)
+        return isNaN(parsed) ? value : parsed;
+      }
+      return value;
+    },
+    z.number().min(1, { message: "The minimum number of days is 1." }),
+  ),
   notes: z.string().optional(),
 });
 
