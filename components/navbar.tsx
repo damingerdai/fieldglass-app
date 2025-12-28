@@ -1,7 +1,7 @@
 import { cn } from "@/lib/utils";
 import { User } from "@supabase/supabase-js";
 import * as React from "react";
-import { UserAvatar } from "./user-avatar";
+import { UserNav } from "./user-nav";
 
 interface NavbarProps extends React.ComponentProps<"nav"> {
   title?: string;
@@ -21,7 +21,7 @@ export const Navbar: React.FC<NavbarProps> = (props) => {
     >
       <h1 className="font-bold hover:rotate-6">{title}</h1>
       <div className="flex-1"></div>
-      {user?.email && <UserAvatar email={user.email} />}
+      <UserNav user={user || null} />
     </nav>
   );
 };
