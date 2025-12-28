@@ -50,5 +50,5 @@ export async function onSubmitAction(
     };
   }
   revalidatePath("/", "layout");
-  redirect("dashboard");
+  redirect("/dashboard");
 }
