@@ -32,9 +32,6 @@ export const VacationCard: React.FC<VacationCardProps> = (props) => {
             <p>
                 <strong>Total Days:</strong> {vacation.days}
             </p>
-            <p>
-                <strong>Notes:</strong> {vacation.notes || "N/A"}
-            </p>
         </CardContent>
     </Card>
 }

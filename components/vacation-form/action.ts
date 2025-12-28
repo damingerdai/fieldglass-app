@@ -2,6 +2,7 @@
 
 import { createClient } from "@/utils/supabase/server";
 import { CreateVacationData, CreateVacationDataKey, formFields, schemas } from "./schemas";
+import { formatLeaveType } from "@/lib/leave-type";
 
 const VACATION_TABLE_NAME = 'vacations';
 
@@ -55,6 +56,27 @@ export async function onSubmitAction(preState: ActionResult<CreateVacationData>,
         };
     }
     const currentUserId = userData.user.id;
+
+    const { data: existingVacations, error: fetchError } = await supabase
+        .from(VACATION_TABLE_NAME)
+        .select("id")
+        .eq("user_id", currentUserId)
+        .eq("leave_type", validatedData.leave_type)
+        .lte("start_date", validatedData.end_date.toISOString())
+        .gte("end_date", validatedData.start_date.toISOString())
+        .limit(1);
+
+    if (fetchError) {
+        return { errors: `Checking for conflicts failed: ${fetchError.message}` };
+    }
+
+    if (existingVacations && existingVacations.length > 0) {
+        const friendlyType = formatLeaveType(validatedData.leave_type);
+
+        return {
+            errors: `Conflict: You already have a ${friendlyType} request during this period.`
+        };
+    }
 
     const { error } = await supabase
         .from(VACATION_TABLE_NAME)
