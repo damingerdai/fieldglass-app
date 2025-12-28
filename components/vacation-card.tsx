@@ -19,7 +19,7 @@ export const VacationCard: React.FC<VacationCardProps> = (props) => {
                 {vacation.leave_type.replace('_', ' ')}
             </CardTitle>
             <CardDescription>
-                {vacation.notes}
+                {vacation.notes || "No additional notes provided."}
             </CardDescription>
             <CardAction>
                 <VacationMoreMenu vacationId={vacation.id} />
