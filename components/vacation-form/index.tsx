@@ -50,7 +50,7 @@ export function CreateVacationForm({
     days: 1,
     notes: "",
   };
-  const form = useForm({
+  const form = useForm<CreateVacationData>({
     resolver: zodResolver(schemas),
     defaultValues,
   });
