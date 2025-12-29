@@ -18,6 +18,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { schemas } from "./schemas";
 import { onSubmitAction, SubmitResult } from "./action";
 import { useRouter } from "next/navigation";
+import NextLink from "next/link";
 
 export function LoginForm({
   className,
@@ -101,7 +102,11 @@ export function LoginForm({
               )}
             />
           </div>
-
+          <div className="flex justify-end">
+            <NextLink href="/forgot-password" className="text-sm underline underline-offset-4">
+              Forgot password?
+            </NextLink>
+          </div>
           <div className="flex flex-col gap-3">
             <Button type="submit" className="w-full" disabled={pending}>
               {pending ? (
@@ -115,11 +120,12 @@ export function LoginForm({
             </Button>
           </div>
         </div>
+
         <div className="mt-4 text-center text-sm">
           Don&apos;t have an account?{" "}
-          <a href="/register" className="underline underline-offset-4">
+          <NextLink href="/register" className="underline underline-offset-4">
             Sign up
-          </a>
+          </NextLink>
         </div>
       </form>
     </Form>
