@@ -19,6 +19,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import NextLink from "next/link";
+import { getURL } from "@/lib/utils";
 
 
 const formSchema = z.object({
@@ -40,7 +41,7 @@ export default function Page() {
 
     const { error } = await supabase.auth.resetPasswordForEmail(values.email, {
       // Use window.location.origin to dynamically handle the URL
-      redirectTo: `${window.location.origin}/auth/callback?next=/update-password`,
+      redirectTo: `${getURL()}/auth/callback?next=/update-password`,
     });
 
     if (error) {
