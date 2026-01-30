@@ -4,7 +4,7 @@ import { createClient } from "@/utils/supabase/server";
 import { CreateVacationData, CreateVacationDataKey, formFields, schemas } from "./schemas";
 import { formatLeaveType } from "@/lib/leave-type";
 
-const VACATION_TABLE_NAME = 'vacations';
+const VACATION_TABLE_NAME = 'leave_requests';
 
 export type ActionResult<T = any> = {
     errors: Record<keyof T, string[]> | string;
@@ -13,7 +13,8 @@ export type ActionResult<T = any> = {
     | { errors?: never; message: string };
 
 export async function onSubmitAction(preState: ActionResult<CreateVacationData>, formData: FormData): Promise<ActionResult<CreateVacationData>> {
-    const notes = formData.get("nodtes") as string;
+    const notes = formData.get("notes") as string;
+    const reason = formData.get("reason") as string;
     const data = {
         leave_type: formData.get("leave_type") as string,
         start_date: new Date(formData.get("start_date") as string),
@@ -22,6 +23,9 @@ export async function onSubmitAction(preState: ActionResult<CreateVacationData>,
     } as CreateVacationData;
     if (notes) {
         data.notes = notes;
+    }
+    if (reason) {
+        data.reason = reason;
     }
 
     const parse = schemas.safeParse(data);
@@ -32,6 +36,7 @@ export async function onSubmitAction(preState: ActionResult<CreateVacationData>,
             start_date: [],
             end_date: [],
             days: [],
+            reason: [],
             notes: [],
         };
 
@@ -57,11 +62,32 @@ export async function onSubmitAction(preState: ActionResult<CreateVacationData>,
     }
     const currentUserId = userData.user.id;
 
+    // Check balance before creating request
+    const { data: balances, error: balanceError } = await supabase
+        .from('user_leave_balances')
+        .select('*')
+        .eq('user_id', currentUserId)
+        .eq('leave_type', validatedData.leave_type)
+        .single();
+
+    if (balanceError && balanceError.code !== 'PGRST116') {
+        console.error("Balance check error:", balanceError.message);
+    }
+
+    if (balances && balances.remaining_balance < validatedData.days) {
+        const friendlyType = formatLeaveType(validatedData.leave_type);
+        return {
+            errors: `Insufficient balance: You have ${balances.remaining_balance} days remaining for ${friendlyType}, but requested ${validatedData.days} days.`
+        };
+    }
+
+    // Check for conflicts with approved requests only
     const { data: existingVacations, error: fetchError } = await supabase
         .from(VACATION_TABLE_NAME)
         .select("id")
         .eq("user_id", currentUserId)
         .eq("leave_type", validatedData.leave_type)
+        .eq("status", "approved")
         .lte("start_date", validatedData.end_date.toISOString())
         .gte("end_date", validatedData.start_date.toISOString())
         .limit(1);
@@ -83,6 +109,7 @@ export async function onSubmitAction(preState: ActionResult<CreateVacationData>,
         .insert([{
             ...validatedData,
             user_id: currentUserId,
+            status: 'approved', // Auto-approve requests
         }]);
 
     if (error) {

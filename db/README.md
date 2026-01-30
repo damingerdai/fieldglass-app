@@ -10,7 +10,8 @@ db/
 └── migrations/
     ├── 20260127224603_create_leave_entitlements.sql
     ├── 20260127224945_create_leave_requests.sql
-    └── 20260127225000_create_leave_balances_view.sql
+    ├── 20260127225000_create_leave_balances_view.sql
+    └── 20260127230500_drop_vacations_table.sql
 ```
 
 ## Migrations
@@ -62,6 +63,14 @@ Creates the balance calculation view:
   - Joins entitlements with approved leave requests
   - Respects effective and expiry dates
   - Returns balance per user per leave type
+  - Uses `SECURITY INVOKER` to respect RLS policies
+
+### 20260127230500_drop_vacations_table.sql
+
+Drops the old vacations table:
+
+- **Removes**: `vacations` table and all its data
+- **Purpose**: Clean migration to new leave_entitlements system
 
 ## Usage
 
@@ -72,4 +81,5 @@ Apply migrations in order using your preferred database migration tool (e.g., Su
 psql -d your_database -f db/migrations/20260127224603_create_leave_entitlements.sql
 psql -d your_database -f db/migrations/20260127224945_create_leave_requests.sql
 psql -d your_database -f db/migrations/20260127225000_create_leave_balances_view.sql
+psql -d your_database -f db/migrations/20260127230500_drop_vacations_table.sql
 ```
