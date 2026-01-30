@@ -7,7 +7,7 @@ import {
   SidebarMenuItem,
 } from "./ui/sidebar";
 import { SidebarMenuButton } from "./app-sidebar-button";
-import { HomeIcon, TreePalm } from "lucide-react";
+import { CalendarCheck, HomeIcon, TreePalm } from "lucide-react";
 import Link from "next/link";
 
 export const Aside: React.FC = () => {
@@ -30,6 +30,14 @@ export const Aside: React.FC = () => {
                 <Link href="/vacation">
                   <TreePalm />
                   <span>Vacation</span>
+                </Link>
+              </SidebarMenuButton>
+            </SidebarMenuItem>
+            <SidebarMenuItem>
+              <SidebarMenuButton asChild>
+                <Link href="/leave-entitlements">
+                  <CalendarCheck />
+                  <span>Leave Entitlements</span>
                 </Link>
               </SidebarMenuButton>
             </SidebarMenuItem>
