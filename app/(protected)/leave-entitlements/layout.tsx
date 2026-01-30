@@ -1,5 +1,4 @@
 import { AppBreadcrumb } from "@/components/app-breadcrumb";
-import { Separator } from "@/components/ui/separator"
 
 export default function Layout({ children }: { children: React.ReactNode }) {
     return <div className="p-4">
