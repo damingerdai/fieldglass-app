@@ -15,7 +15,7 @@ import { format } from "date-fns";
 import { Calendar } from "../ui/calendar";
 import { RadioGroup, RadioGroupItem } from "../ui/radio-group";
 import { Input } from "../ui/input";
-import { createLeaveEntitlements } from "./action";
+import { createLeaveEntitlements } from "./actions";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 
