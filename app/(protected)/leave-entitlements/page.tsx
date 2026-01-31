@@ -5,7 +5,7 @@ import { getLeaveEntitlements } from "@/components/leave-entitlements/actions";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { format } from "date-fns";
 import { Badge } from "@/components/ui/badge";
-import { DeleteLeaveEntitlementsButton } from "@/components/leave-entitlements";
+import { DeleteLeaveEntitlementsButton, EditAmountSheet } from "@/components/leave-entitlements";
 
 export default async function Page() {
     const { data: entitlements, success, error } = await getLeaveEntitlements();
@@ -140,7 +140,15 @@ export default async function Page() {
                                             </p>
                                         </td>
                                         <td className="px-6 py-4 text-right">
-                                            <DeleteLeaveEntitlementsButton id={item.id} />
+                                            <div className="flex justify-end gap-2">
+                                                <EditAmountSheet
+                                                    id={item.id}
+                                                    currentAmount={item.amount_days}
+                                                    leaveType={item.leave_type}
+                                                />
+                                                <DeleteLeaveEntitlementsButton id={item.id} />
+                                            </div>
+
                                         </td>
                                     </tr>
                                 ))}

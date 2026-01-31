@@ -75,6 +75,27 @@ export async function getLeaveEntitlements() {
     return { success: true, data: data as LeaveEntitlements };
 }
 
+export async function updateLeaveAmount(id: string, newAmount: number) {
+    const supabase = await createClient();
+
+    const { data: { user }, error: authError } = await supabase.auth.getUser();
+    if (authError || !user) return { success: false, error: "Unauthorized" };
+
+    const { error } = await supabase
+        .from("leave_entitlements")
+        .update({
+            amount_days: newAmount,
+            updated_at: new Date().toISOString()
+        })
+        .eq("id", id)
+        .eq("user_id", user.id);
+
+    if (error) return { success: false, error: error.message };
+
+    revalidatePath("/leave-entitlements");
+    return { success: true };
+}
+
 export async function deleteLeaveEntitlement(id: string) {
     const supabase = await createClient();
     const { data: { user }, error: authError } = await supabase.auth.getUser();
