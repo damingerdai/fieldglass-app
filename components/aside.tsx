@@ -22,7 +22,7 @@ const navItems = [
 export const Aside: React.FC = () => {
   const pathname = usePathname();
   return (
-    <aside className="flex flex-col w-64 border-r border-slate-100 bg-white/80 backdrop-blur-md">
+    <div className="flex flex-col h-full w-full bg-white/80 backdrop-blur-md">
       <SidebarGroup>
         <SidebarGroupLabel className="px-4 text-[11px] font-bold uppercase tracking-widest text-slate-400 mb-4">
           Main Menu
@@ -75,6 +75,6 @@ export const Aside: React.FC = () => {
         <p className="text-[12px] font-semibold text-[#7C3AED]">Premium Plan</p>
         <p className="text-[11px] text-[#7C3AED]/60">Manage leave efficiently.</p>
       </div>
-    </aside>
+    </div>
   );
 };
