@@ -16,3 +16,18 @@ export async function getUserBalances() {
     if (error) return { success: false, error: error.message };
     return { success: true, data };
 }
+
+export async function getLeaveRequests() {
+    const supabase = await createClient();
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user) return { success: false, error: "Unauthorized", data: [] };
+
+    const { data, error } = await supabase
+        .from("leave_requests")
+        .select("*")
+        .eq("user_id", user.id)
+        .order("updated_at", { ascending: false });
+
+    if (error) return { success: false, error: error.message, data: [] };
+    return { success: true, data };
+}

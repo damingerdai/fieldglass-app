@@ -9,7 +9,7 @@ import {
   SidebarMenuItem,
 } from "./ui/sidebar";
 import { SidebarMenuButton } from "./app-sidebar-button";
-import { CalendarCheck2, ChevronRight, HomeIcon, LayoutDashboard, Palmtree, TreePalm } from "lucide-react";
+import { CalendarCheck2, ChevronRight, HomeIcon, LayoutDashboard, Palmtree, SendHorizontal, TreePalm } from "lucide-react";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { usePathname } from "next/navigation";
@@ -17,6 +17,7 @@ import { usePathname } from "next/navigation";
 const navItems = [
   { title: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
   { title: "Leave Entitlements", href: "/leave-entitlements", icon: CalendarCheck2 },
+  { title: "My Requests", href: "/leave-requests", icon: SendHorizontal }
 ];
 
 export const Aside: React.FC = () => {
@@ -45,10 +46,9 @@ export const Aside: React.FC = () => {
                     )}
                   >
                     <Link href={item.href} className="w-full flex items-center">
-                      {/* 图标容器 */}
                       <div className={cn(
                         "flex items-center justify-center p-1.5 rounded-lg transition-colors",
-                        isActive ? "bg-white text-[#7C3AED] shadow-sm" : "group-hover:text-slate-900"
+                        isActive ? "bg-white shadow-sm" : "group-hover:text-slate-900"
                       )}>
                         <item.icon size={18} strokeWidth={isActive ? 2.5 : 2} />
                       </div>

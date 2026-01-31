@@ -63,7 +63,7 @@ export default async function Page() {
           </CardContent>
         </Card>
 
-        <Card className="border-none shadow-sm bg-[#7C3AED] text-white">
+        <Card className="border-none shadow-sm bg-white">
           <CardHeader className="flex flex-row items-center justify-between pb-2">
             <CardTitle className="text-sm font-medium opacity-80">Net Balance</CardTitle>
             <div className="p-1.5 bg-white/20 rounded-lg">
@@ -78,7 +78,6 @@ export default async function Page() {
       </div>
 
       <div className="grid gap-6 md:grid-cols-7">
-        {/* 左侧：分假种余额明细 (来自 View) */}
         <div className="col-span-4 space-y-6">
           <Card className="border-none shadow-sm">
             <CardHeader>
@@ -145,18 +144,13 @@ export default async function Page() {
               <CardDescription>Ready for a break?</CardDescription>
             </CardHeader>
             <CardContent className="space-y-3">
-              <Button asChild className="w-full justify-between py-7 bg-[#7C3AED] hover:bg-[#6D28D9] shadow-md shadow-purple-100">
+              <Button asChild className="w-full justify-start py-6 shadow-sm">
                 <Link href="/leave-requests/create">
-                  <div className="flex items-center">
-                    <div className="p-2 bg-white/20 rounded-lg mr-3">
-                      <Plus className="h-5 w-5 text-white" />
-                    </div>
-                    <div className="flex flex-col items-start">
-                      <span className="font-bold">Apply for Leave</span>
-                      <span className="text-[10px] font-normal opacity-80">Submit to your manager</span>
-                    </div>
+                  <Plus className="mr-2 h-5 w-5" />
+                  <div className="flex flex-col items-start">
+                    <span>Apply for Leave</span>
+                    <span className="text-[10px] font-normal opacity-80">Submit a new request</span>
                   </div>
-                  <ArrowRight className="h-4 w-4 opacity-50" />
                 </Link>
               </Button>
               <Button variant="outline" asChild className="w-full justify-start py-7 border-slate-200 hover:bg-white hover:border-[#7C3AED] hover:text-[#7C3AED] transition-all">
