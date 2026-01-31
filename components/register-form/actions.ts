@@ -4,9 +4,9 @@ import { createClient } from "@/utils/supabase/server";
 
 export type SubmitResult =
   | {
-      errors: Record<keyof InputData, string[]> | string;
-      message?: never;
-    }
+    errors: Record<keyof InputData, string[]> | string;
+    message?: never;
+  }
   | { errors?: never; message: string };
 
 export async function onSubmitStudent(
@@ -57,7 +57,7 @@ export async function onSubmitStudent(
       errors: error.message,
     };
   }
-  console.log("Validated Data:", data);
+
   return {
     message: "Register successfully!",
     errors: undefined,
