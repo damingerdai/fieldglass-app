@@ -1,7 +1,7 @@
 "use client";
 
 import { User } from "@supabase/supabase-js";
-import { LogIn, LogOut, Settings, User as UserIcon } from "lucide-react";
+import { LogIn, LogOut, Settings, User as UserIcon, ShieldCheck } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { UserAvatar } from "./user-avatar";
 import {
@@ -27,53 +27,64 @@ export function UserNav({ user }: UserNavProps) {
     router.refresh();
   };
 
-  const handleLogin = () => {
-    router.push("/login");
-  };
-
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <button className="relative h-9 w-9 rounded-full focus:outline-none ring-offset-background transition-all hover:ring-2 hover:ring-ring hover:ring-offset-2 active:scale-95">
+        <button className="relative group h-9 w-9 rounded-xl overflow-hidden focus:outline-none ring-offset-background transition-all hover:ring-2 hover:ring-primary/20 hover:ring-offset-2 active:scale-95 shadow-sm border border-slate-200">
           <UserAvatar email={user?.email ?? ""} />
+          <div className="absolute inset-0 bg-black/5 opacity-0 group-hover:opacity-100 transition-opacity" />
         </button>
       </DropdownMenuTrigger>
-      
-      <DropdownMenuContent align="end" className="w-56" forceMount>
+
+      <DropdownMenuContent align="end" className="w-64 p-2 shadow-xl rounded-xl border-slate-100" forceMount>
         {user ? (
           <>
-            <DropdownMenuLabel className="font-normal">
-              <div className="flex flex-col space-y-1">
-                <p className="text-sm font-medium leading-none truncate">
-                  {user.email?.split('@')[0]}
-                </p>
-                <p className="text-xs leading-none text-muted-foreground truncate">
-                  {user.email}
-                </p>
+            <DropdownMenuLabel className="font-normal p-2">
+              <div className="flex flex-col space-y-2">
+                <div className="flex items-center gap-2">
+                  <div className="p-1 bg-primary/10 rounded-md text-[10px] font-bold text-primary flex items-center gap-1">
+                    <ShieldCheck className="h-3 w-3" />
+                    ACTIVE
+                  </div>
+                </div>
+                <div>
+                  <p className="text-sm font-semibold leading-none text-slate-900 truncate capitalize">
+                    {user.email?.split('@')[0]}
+                  </p>
+                  <p className="text-[11px] font-medium leading-tight text-slate-400 truncate mt-1">
+                    {user.email}
+                  </p>
+                </div>
               </div>
             </DropdownMenuLabel>
-            <DropdownMenuSeparator />
-            {/* <DropdownMenuItem onClick={() => router.push("/profile")}>
-              <UserIcon className="mr-2 h-4 w-4" />
-              <span>Profile</span>
+
+            <DropdownMenuSeparator className="my-2 bg-slate-50" />
+
+            <DropdownMenuItem
+              className="flex items-center px-3 py-2.5 rounded-lg text-slate-600 focus:bg-[#F4EEFC] focus:text-[#7C3AED] transition-colors cursor-pointer group"
+              onClick={() => router.push("/settings")}
+            >
+              <Settings className="mr-3 h-4 w-4 text-slate-400 group-focus:text-[#7C3AED]" />
+              <span className="font-medium">Settings</span>
             </DropdownMenuItem>
-            <DropdownMenuItem onClick={() => router.push("/settings")}>
-              <Settings className="mr-2 h-4 w-4" />
-              <span>Settings</span>
-            </DropdownMenuItem>
-            <DropdownMenuSeparator /> */}
-            <DropdownMenuItem 
-              className="text-red-600 focus:bg-red-50 focus:text-red-600 cursor-pointer"
+
+            <DropdownMenuSeparator className="my-2 bg-slate-50" />
+
+            <DropdownMenuItem
+              className="flex items-center px-3 py-2.5 rounded-lg text-red-500 focus:bg-red-50 focus:text-red-600 transition-colors cursor-pointer"
               onClick={handleLogout}
             >
-              <LogOut className="mr-2 h-4 w-4" />
-              <span>Log out</span>
+              <LogOut className="mr-3 h-4 w-4" />
+              <span className="font-medium">Log out</span>
             </DropdownMenuItem>
           </>
         ) : (
-          <DropdownMenuItem onClick={handleLogin} className="cursor-pointer">
-            <LogIn className="mr-2 h-4 w-4" />
-            <span>Sign In</span>
+          <DropdownMenuItem
+            onClick={() => router.push("/login")}
+            className="flex items-center p-3 rounded-lg focus:bg-primary/5 cursor-pointer font-medium"
+          >
+            <LogIn className="mr-3 h-4 w-4 text-primary" />
+            <span>Sign In to Dashboard</span>
           </DropdownMenuItem>
         )}
       </DropdownMenuContent>
