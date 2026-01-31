@@ -30,7 +30,7 @@ export const Aside: React.FC = () => {
         <SidebarGroupContent className="px-2">
           <SidebarMenu className="gap-1">
             {navItems.map((item) => {
-              const isActive = pathname === item.href;
+              const isActive = pathname === item.href || pathname.startsWith(item.href + "/");
 
               return (
                 <SidebarMenuItem key={item.href}>
