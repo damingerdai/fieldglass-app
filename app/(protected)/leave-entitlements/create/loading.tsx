@@ -3,7 +3,6 @@ import { Skeleton } from "@/components/ui/skeleton";
 export default function Loading() {
     return (
         <div className="space-y-6">
-            {/* Leave Type Radio Group Skeleton */}
             <div className="space-y-3">
                 <Skeleton className="h-4 w-20" />
                 <div className="flex flex-col space-y-2">
@@ -18,15 +17,11 @@ export default function Loading() {
                     ))}
                 </div>
             </div>
-
-            {/* Amount Days Skeleton */}
             <div className="space-y-2">
                 <Skeleton className="h-4 w-28" />
                 <Skeleton className="h-10 w-full" />
                 <Skeleton className="h-3 w-36" />
             </div>
-
-            {/* Date Pickers Grid Skeleton */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="space-y-2">
                     <Skeleton className="h-4 w-24" />
@@ -38,13 +33,11 @@ export default function Loading() {
                 </div>
             </div>
 
-            {/* Notes Skeleton */}
             <div className="space-y-2">
                 <Skeleton className="h-4 w-12" />
                 <Skeleton className="h-20 w-full" />
             </div>
 
-            {/* Action Buttons Skeleton */}
             <div className="flex justify-end gap-4 pt-4">
                 <Skeleton className="h-10 w-20" />
                 <Skeleton className="h-10 w-32" />

@@ -1,10 +1,10 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { getLeaveRequests } from "@/components/user-balances/actions";
 import { StatusBadge } from "@/components/user-balances/status-badge";
 import { format } from "date-fns";
 import { Calendar, Clock, FileText, Plus } from "lucide-react";
 import Link from "next/link";
+import { getLeaveRequests } from "@/components/leave-requests/actions";
 
 export default async function Page() {
     const { data: requests } = await getLeaveRequests();
