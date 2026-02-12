@@ -2,7 +2,7 @@ import { z } from "zod";
 
 export const createLeaveRequestSchema = z.object({
     leave_type: z.enum(["annual", "sick", "unpaid"]),
-    days: z.number().min(1).max(31),
+    days: z.coerce.number().min(1).max(31),
     start_date: z.date().min(new Date()),
     end_date: z.date().min(new Date()),
     reason: z.string().optional()
