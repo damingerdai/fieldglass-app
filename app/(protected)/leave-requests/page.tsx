@@ -5,6 +5,7 @@ import { format } from "date-fns";
 import { Calendar, Clock, FileText, Plus } from "lucide-react";
 import Link from "next/link";
 import { getLeaveRequests } from "@/components/leave-requests/actions";
+import { CancelRequestButton } from "@/components/leave-requests/cancel-request-button";
 
 export default async function Page() {
     const { data: requests } = await getLeaveRequests();
@@ -69,9 +70,7 @@ export default async function Page() {
                                 {/* 操作按钮 */}
                                 <div className="flex items-center justify-end">
                                     {request.status === "pending" ? (
-                                        <Button variant="outline" size="sm" className="text-rose-600 hover:bg-rose-50 hover:text-rose-700 border-rose-100">
-                                            Cancel Request
-                                        </Button>
+                                        <CancelRequestButton id={request.id} />
                                     ) : (
                                         <Button variant="ghost" size="sm" asChild>
                                             <Link href={`/leave-requests/${request.id}`}>Details</Link>

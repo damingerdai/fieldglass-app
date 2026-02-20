@@ -63,3 +63,23 @@ export async function createLeaveRequest(data: CreateLeaveRequestSchema) {
     revalidatePath("/dashboard");
     return { success: true };
 }
+
+export async function cancelLeaveRequest(requestId: string) {
+    const supabase = await createClient();
+    
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user) return { success: false, error: "Unauthorized" };
+
+    const { error } = await supabase
+        .from("leave_requests")
+        .update({ status: 'cancelled' })
+        .eq("id", requestId)
+        .eq("user_id", user.id)
+        .eq("status", "pending");
+
+    if (error) return { success: false, error: error.message };
+
+    revalidatePath("/leave-requests");
+    revalidatePath("/dashboard");
+    return { success: true };
+}
