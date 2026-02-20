@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { StatusBadge } from "@/components/user-balances/status-badge";
 import { format } from "date-fns";
-import { Calendar, Clock, FileText, Plus } from "lucide-react";
+import { Calendar, CheckCircle2, Clock, FileText, Plus } from "lucide-react";
 import Link from "next/link";
 import { getLeaveRequests } from "@/components/leave-requests/actions";
 import { CancelRequestButton } from "@/components/leave-requests/cancel-request-button";
@@ -24,44 +24,56 @@ export default async function Page() {
             </div>
             <div className="grid gap-4">
                 {requests?.map((request) => (
-                    <Card key={request.id} className="overflow-hidden hover:border-[#7C3AED]/30 transition-colors">
+                   <Card key={request.id} className="group border-slate-100 shadow-none hover:border-slate-300 transition-all rounded-2xl">
                         <CardContent className="p-0">
-                            <div className="flex flex-col md:flex-row md:items-center p-6 gap-6">
+                            <div className="flex flex-col md:flex-row md:items-center p-8 gap-8">
+                                
                                 {/* 状态与假种 */}
-                                <div className="flex flex-col gap-2 min-w-[140px]">
+                                <div className="flex flex-col gap-3 min-w-[150px]">
                                     <StatusBadge status={request.status} />
-                                    <span className="font-bold text-lg capitalize">{request.leave_type} Leave</span>
+                                    <div className="space-y-1">
+                                        <p className="font-bold text-base uppercase tracking-tight text-slate-800">
+                                            {request.leave_type} Leave
+                                        </p>
+                                        {/* 审批来源标注：仅在已审批时显示 */}
+                                        {request.status === "approved" && (
+                                            <div className="flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-wider text-slate-400">
+                                                <CheckCircle2 className="h-3 w-3 text-emerald-500" />
+                                                {request.approver_id === request.user_id ? "Self Approved" : "Manager Approved"}
+                                            </div>
+                                        )}
+                                    </div>
                                 </div>
 
                                 {/* 日期信息 */}
-                                <div className="flex-1 grid grid-cols-1 sm:grid-cols-2 gap-4">
-                                    <div className="flex items-center gap-3">
-                                        <div className="p-2 bg-slate-100 rounded-lg">
-                                            <Calendar className="h-4 w-4 text-slate-500" />
+                                <div className="flex-1 grid grid-cols-1 sm:grid-cols-2 gap-8">
+                                    <div className="flex items-center gap-4">
+                                        <div className="p-2.5 bg-slate-50 rounded-xl">
+                                            <Calendar className="h-4 w-4 text-slate-400" />
                                         </div>
                                         <div>
-                                            <p className="text-[10px] uppercase font-bold text-slate-400">Duration</p>
-                                            <p className="text-sm font-medium">
-                                                {format(new Date(request.start_date), "MMM d")} - {format(new Date(request.end_date), "MMM d, yyyy")}
+                                            <p className="text-[10px] uppercase font-bold tracking-widest text-slate-300">Period</p>
+                                            <p className="text-sm font-medium text-slate-600">
+                                                {format(new Date(request.start_date), "MMM d")} — {format(new Date(request.end_date), "MMM d, yyyy")}
                                             </p>
                                         </div>
                                     </div>
-                                    <div className="flex items-center gap-3">
-                                        <div className="p-2 bg-slate-100 rounded-lg">
-                                            <Clock className="h-4 w-4 text-slate-500" />
+                                    <div className="flex items-center gap-4">
+                                        <div className="p-2.5 bg-slate-50 rounded-xl">
+                                            <Clock className="h-4 w-4 text-slate-400" />
                                         </div>
                                         <div>
-                                            <p className="text-[10px] uppercase font-bold text-slate-400">Total Days</p>
-                                            <p className="text-sm font-bold text-[#7C3AED]">{request.days} Days</p>
+                                            <p className="text-[10px] uppercase font-bold tracking-widest text-slate-300">Total</p>
+                                            <p className="text-sm font-bold text-slate-900">{request.days} Days</p>
                                         </div>
                                     </div>
                                 </div>
 
-                                {/* 备注（如果有） */}
+                                {/* 备注 */}
                                 {request.reason && (
-                                    <div className="flex-1 hidden lg:flex items-start gap-2 max-w-xs">
-                                        <FileText className="h-4 w-4 text-slate-300 shrink-0 mt-1" />
-                                        <p className="text-sm text-slate-500 italic line-clamp-2">
+                                    <div className="flex-1 hidden lg:flex items-start gap-2 max-w-xs border-l border-slate-50 pl-6">
+                                        <FileText className="h-4 w-4 text-slate-200 shrink-0 mt-1" />
+                                        <p className="text-xs text-slate-400 italic line-clamp-2 leading-relaxed">
                                             &ldquo;{request.reason}&rdquo;
                                         </p>
                                     </div>
@@ -72,7 +84,7 @@ export default async function Page() {
                                     {request.status === "pending" ? (
                                         <CancelRequestButton id={request.id} />
                                     ) : (
-                                        <Button variant="ghost" size="sm" asChild>
+                                        <Button variant="ghost" size="sm" asChild className="text-slate-400 hover:text-slate-900 rounded-xl">
                                             <Link href={`/leave-requests/${request.id}`}>Details</Link>
                                         </Button>
                                     )}

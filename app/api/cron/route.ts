@@ -1,70 +1,64 @@
 import { NextResponse } from "next/server";
-import { createClient } from "@supabase/supabase-js";
+import { createClient, SupabaseClient } from "@supabase/supabase-js";
 
-// 注意：在 Vercel 环境中，通常使用 SUPABASE_SERVICE_ROLE_KEY 处理管理任务
-// 或者确保 NEXT_PUBLIC_SUPABASE_ANON_KEY 已在 Vercel Dashboard 中配置
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
-const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+const supabaseUrl = process.env.SUPABASE_URL;
+const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
 
 export async function GET(request: Request) {
-  // 安全校验（防止外部恶意调用）
+  // 1. 安全校验
   const authHeader = request.headers.get('authorization');
-  if (authHeader !== `Bearer ${process.env.CRON_SECRET}`) {
-    return new Response('Unauthorized', { status: 401 });
+  console.log(process.env.NODE_ENV);
+  if (process.env.NODE_ENV !== 'development' && authHeader !== `Bearer ${process.env.CRON_SECRET}`) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
   if (!supabaseUrl || !supabaseKey) {
-    return NextResponse.json({ error: "缺少必要的环境变量" }, { status: 500 });
+    return NextResponse.json({ error: "Missing configuration" }, { status: 500 });
   }
 
   const supabase = createClient(supabaseUrl, supabaseKey);
-  const operations: any[] = [];
-  let successCount = 0;
 
   try {
-    // --- 方法1: Storage API ---
-    const { data: storageData, error: storageError } = await supabase.storage.listBuckets();
-    if (storageError) {
-      operations.push({ method: "Storage API check", success: false, error: storageError.message });
-    } else {
-      operations.push({ method: "Storage API check", success: true });
-      successCount++;
-    }
-
-    // --- 方法2: Keep-alive query ---
-    const { error: queryError } = await supabase
-      .from(`_keep_alive_test_${Date.now()}`)
-      .select('*')
-      .limit(1);
-    
-    // 预期错误 42P01 (表不存在) 说明连接到了数据库
-    if (queryError && (queryError.code === '42P01' || queryError.code === 'PGRST116')) {
-      operations.push({ method: "Keep-alive query", success: true });
-      successCount++;
-    } else if (!queryError) {
-      operations.push({ method: "Keep-alive query", success: true });
-      successCount++;
-    } else {
-      operations.push({ method: "Keep-alive query", success: false, error: queryError.message });
-    }
-
-    // --- 方法3: Auth API ---
-    const { error: authError } = await supabase.auth.getUser();
-    if (authError && authError.message !== 'Auth session missing!') {
-      operations.push({ method: "Auth API check", success: false, error: authError.message });
-    } else {
-      operations.push({ method: "Auth API check", success: true });
-      successCount++;
+    const { data, error } = await supabase.rpc('handle_auto_approve');
+    if (error) {
+      throw error;
     }
 
     return NextResponse.json({
-      message: "保活任务执行完成",
-      successCount,
-      totalOperations: operations.length,
-      details: operations
-    });
+      success: true,
+      message: `Successfully auto-approved ${data?.length || 0} requests.`,
+      processed_count: data?.length || 0,
+      details: data
+    }, { status: 200 });
 
   } catch (error: any) {
+    console.error("Auto-Approve Cron Error:", error);
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
+}
+
+async function fetchAllUserIds(supabase: SupabaseClient<any, "public", "public", any, any>) {
+  let allUserIds: string[] = [];
+  let page = 1;
+  const perPage = 1000; // 每页最大数量
+
+  while (true) {
+    const { data: { users }, error } = await supabase.auth.admin.listUsers({
+      page: page,
+      perPage: perPage,
+    });
+
+    if (error) throw error;
+    if (users.length === 0) break;
+
+    // 提取 ID
+    const ids = users.map(user => user.id);
+    allUserIds = [...allUserIds, ...ids];
+
+    // 如果返回的用户数少于每页限额，说明已经拿完了
+    if (users.length < perPage) break;
+    page++;
+  }
+
+  return allUserIds;
 }
