@@ -16,7 +16,6 @@ export default async function Page() {
             </div>
         );
     }
-
     const totalDays = entitlements.reduce((acc, curr) => acc + curr.amount_days, 0);
     const recentActivity = entitlements.length > 0 ? entitlements[0].updated_at : null;
 

@@ -10,7 +10,19 @@ export async function getLeaveRequests() {
 
     const { data, error } = await supabase
         .from("leave_requests")
-        .select("*")
+        .select(`
+            id,
+            user_id,
+            leave_type,
+            start_date,
+            end_date,
+            days,
+            status,
+            reason,
+            approver_id,
+            approved_at, 
+            created_at, 
+            updated_at`)
         .eq("user_id", user.id)
         .order("updated_at", { ascending: false });
 
@@ -66,7 +78,7 @@ export async function createLeaveRequest(data: CreateLeaveRequestSchema) {
 
 export async function cancelLeaveRequest(requestId: string) {
     const supabase = await createClient();
-    
+
     const { data: { user } } = await supabase.auth.getUser();
     if (!user) return { success: false, error: "Unauthorized" };
 
