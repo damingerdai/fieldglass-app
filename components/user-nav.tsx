@@ -1,18 +1,24 @@
-"use client";
+'use client';
 
-import { User } from "@supabase/supabase-js";
-import { LogIn, LogOut, Settings, User as UserIcon, ShieldCheck } from "lucide-react";
-import { useRouter } from "next/navigation";
-import { UserAvatar } from "./user-avatar";
+import { User } from '@supabase/supabase-js';
+import {
+  LogIn,
+  LogOut,
+  Settings,
+  User as UserIcon,
+  ShieldCheck
+} from 'lucide-react';
+import { useRouter } from 'next/navigation';
+import { UserAvatar } from './user-avatar';
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { createClient } from "@/utils/supabase/client";
+  DropdownMenuTrigger
+} from '@/components/ui/dropdown-menu';
+import { createClient } from '@/utils/supabase/client';
 
 interface UserNavProps {
   user: User | null;
@@ -31,12 +37,16 @@ export function UserNav({ user }: UserNavProps) {
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <button className="relative group h-9 w-9 rounded-xl overflow-hidden focus:outline-none ring-offset-background transition-all hover:ring-2 hover:ring-primary/20 hover:ring-offset-2 active:scale-95 shadow-sm border border-slate-200">
-          <UserAvatar email={user?.email ?? ""} />
+          <UserAvatar email={user?.email ?? ''} />
           <div className="absolute inset-0 bg-black/5 opacity-0 group-hover:opacity-100 transition-opacity" />
         </button>
       </DropdownMenuTrigger>
 
-      <DropdownMenuContent align="end" className="w-64 p-2 shadow-xl rounded-xl border-slate-100" forceMount>
+      <DropdownMenuContent
+        align="end"
+        className="w-64 p-2 shadow-xl rounded-xl border-slate-100"
+        forceMount
+      >
         {user ? (
           <>
             <DropdownMenuLabel className="font-normal p-2">
@@ -62,7 +72,7 @@ export function UserNav({ user }: UserNavProps) {
 
             <DropdownMenuItem
               className="flex items-center px-3 py-2.5 rounded-lg text-slate-600 focus:bg-[#F4EEFC] focus:text-[#7C3AED] transition-colors cursor-pointer group"
-              onClick={() => router.push("/settings")}
+              onClick={() => router.push('/settings')}
             >
               <Settings className="mr-3 h-4 w-4 text-slate-400 group-focus:text-[#7C3AED]" />
               <span className="font-medium">Settings</span>
@@ -80,7 +90,7 @@ export function UserNav({ user }: UserNavProps) {
           </>
         ) : (
           <DropdownMenuItem
-            onClick={() => router.push("/login")}
+            onClick={() => router.push('/login')}
             className="flex items-center p-3 rounded-lg focus:bg-primary/5 cursor-pointer font-medium"
           >
             <LogIn className="mr-3 h-4 w-4 text-primary" />

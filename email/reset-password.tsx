@@ -9,8 +9,8 @@ import {
   Section,
   Text,
   Tailwind,
-  Hr,
-} from "@react-email/components";
+  Hr
+} from '@react-email/components';
 
 export const ResetPasswordEmail = () => {
   return (
@@ -26,14 +26,14 @@ export const ResetPasswordEmail = () => {
                 Fieldglass App
               </Text>
             </Section>
-            
+
             <Heading className="text-black text-[24px] font-semibold text-left p-0 my-[30px] mx-0">
               Reset your password
             </Heading>
-            
+
             <Text className="text-[#374151] text-[14px] leading-[24px]">
-              We received a request to reset the password for your **Fieldglass App** account. 
-              Click the button below to proceed.
+              We received a request to reset the password for your **Fieldglass
+              App** account. Click the button below to proceed.
             </Text>
 
             <Section className="mt-[32px] mb-[32px]">
@@ -46,11 +46,13 @@ export const ResetPasswordEmail = () => {
             </Section>
 
             <Text className="text-[#6b7280] text-[13px] leading-[22px]">
-              If you did not request a password reset, please ignore this email or reply to let us know. This link is only valid for the next 24 hours.
+              If you did not request a password reset, please ignore this email
+              or reply to let us know. This link is only valid for the next 24
+              hours.
             </Text>
 
             <Hr className="border border-solid border-[#e5e7eb] my-[26px] mx-0 w-full" />
-            
+
             <Text className="text-[#9ca3af] text-[12px] leading-[18px]">
               &copy; 2026 Fieldglass App. All rights reserved. <br />
               This is an automated security notification.

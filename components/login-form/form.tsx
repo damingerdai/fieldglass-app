@@ -1,69 +1,69 @@
-"use client";
-import { cn } from "@/lib/utils";
-import { useActionState, useEffect } from "react";
+'use client';
+import { cn } from '@/lib/utils';
+import { useActionState, useEffect } from 'react';
 import {
   Form,
   FormControl,
   FormField,
   FormItem,
   FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Loader2Icon } from "lucide-react";
-import { toast } from "sonner";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { schemas } from "./schemas";
-import { onSubmitAction, SubmitResult } from "./action";
-import { useRouter } from "next/navigation";
-import NextLink from "next/link";
+  FormMessage
+} from '@/components/ui/form';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Loader2Icon } from 'lucide-react';
+import { toast } from 'sonner';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { schemas } from './schemas';
+import { onSubmitAction, SubmitResult } from './action';
+import { useRouter } from 'next/navigation';
+import NextLink from 'next/link';
 
 export function LoginForm({
   className,
   ...props
-}: React.ComponentProps<"form">) {
+}: React.ComponentProps<'form'>) {
   const router = useRouter();
   const form = useForm({
     resolver: zodResolver(schemas),
     defaultValues: {
-      email: "",
-      password: "",
-    },
+      email: '',
+      password: ''
+    }
   });
   const initialState: SubmitResult = {
-    message: "",
-    errors: undefined,
+    message: '',
+    errors: undefined
   };
   const [state, formAction, pending] = useActionState(
     onSubmitAction,
-    initialState,
+    initialState
   );
-  const isValidField = (field: string): field is "email" | "password" => {
-    return ["email", "password"].includes(field);
+  const isValidField = (field: string): field is 'email' | 'password' => {
+    return ['email', 'password'].includes(field);
   };
 
   useEffect(() => {
     if (!state.errors) {
       if (state.message) {
         toast.success(state.message);
-        router.push("/dashboard");
+        router.push('/dashboard');
       } else {
         form.clearErrors();
       }
       return;
     }
-    if (typeof state.errors === "object") {
+    if (typeof state.errors === 'object') {
       Object.entries(state.errors).forEach(([field, message]) => {
         if (isValidField(field) && message) {
           form.setError(field, {
-            message: message.join(","),
+            message: message.join(',')
           });
         }
       });
     }
-    if (typeof state.errors === "string") {
+    if (typeof state.errors === 'string') {
       toast.error(state.errors);
     }
   }, [state, router, form]);
@@ -103,7 +103,10 @@ export function LoginForm({
             />
           </div>
           <div className="flex justify-end">
-            <NextLink href="/forgot-password" className="text-sm underline underline-offset-4">
+            <NextLink
+              href="/forgot-password"
+              className="text-sm underline underline-offset-4"
+            >
               Forgot password?
             </NextLink>
           </div>
@@ -115,14 +118,14 @@ export function LoginForm({
                   Please wait
                 </>
               ) : (
-                "Login"
+                'Login'
               )}
             </Button>
           </div>
         </div>
 
         <div className="mt-4 text-center text-sm">
-          Don&apos;t have an account?{" "}
+          Don&apos;t have an account?{' '}
           <NextLink href="/register" className="underline underline-offset-4">
             Sign up
           </NextLink>

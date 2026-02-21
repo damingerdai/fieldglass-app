@@ -1,4 +1,4 @@
-import { AppSpinner } from "@/components/app-sinner";
+import { AppSpinner } from '@/components/app-sinner';
 
 export default function Loading() {
   return (

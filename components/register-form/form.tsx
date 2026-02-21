@@ -1,72 +1,72 @@
-"use client";
-import { cn } from "@/lib/utils";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { useForm } from "react-hook-form";
-import { useActionState } from "react";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { schemas } from "./schemas";
-import { onSubmitStudent, SubmitResult } from "./actions";
-import { useEffect } from "react";
+'use client';
+import { cn } from '@/lib/utils';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { useForm } from 'react-hook-form';
+import { useActionState } from 'react';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { schemas } from './schemas';
+import { onSubmitStudent, SubmitResult } from './actions';
+import { useEffect } from 'react';
 import {
   Form,
   FormControl,
   FormField,
   FormItem,
   FormLabel,
-  FormMessage,
-} from "../ui/form";
-import { Loader2Icon } from "lucide-react";
-import { toast } from "sonner";
-import { useRouter } from "next/navigation";
+  FormMessage
+} from '../ui/form';
+import { Loader2Icon } from 'lucide-react';
+import { toast } from 'sonner';
+import { useRouter } from 'next/navigation';
 
 export function RegisterForm({
   className,
   ...props
-}: React.ComponentProps<"form">) {
+}: React.ComponentProps<'form'>) {
   const router = useRouter();
   const form = useForm({
     resolver: zodResolver(schemas),
     defaultValues: {
-      email: "",
-      password: "",
-      confirmPassword: "",
-    },
+      email: '',
+      password: '',
+      confirmPassword: ''
+    }
   });
   const initialState: SubmitResult = {
-    message: "",
-    errors: undefined,
+    message: '',
+    errors: undefined
   };
   const [state, formAction, pending] = useActionState(
     onSubmitStudent,
-    initialState,
+    initialState
   );
   const isValidField = (
-    field: string,
-  ): field is "email" | "password" | "confirmPassword" => {
-    return ["email", "password", "confirmPassword"].includes(field);
+    field: string
+  ): field is 'email' | 'password' | 'confirmPassword' => {
+    return ['email', 'password', 'confirmPassword'].includes(field);
   };
 
   useEffect(() => {
     if (!state.errors) {
       if (state.message) {
         toast.success(state.message);
-        router.push("/login");
+        router.push('/login');
       } else {
         form.clearErrors();
       }
       return;
     }
-    if (typeof state.errors === "object") {
+    if (typeof state.errors === 'object') {
       Object.entries(state.errors).forEach(([field, message]) => {
         if (isValidField(field) && message) {
           form.setError(field, {
-            message: message.join(","),
+            message: message.join(',')
           });
         }
       });
     }
-    if (typeof state.errors === "string") {
+    if (typeof state.errors === 'string') {
       toast.error(state.errors);
     }
   }, [state, router, form]);
@@ -75,7 +75,7 @@ export function RegisterForm({
     <Form {...form}>
       <form
         action={formAction}
-        className={cn("flex", "flex-col", "gap-6", className)}
+        className={cn('flex', 'flex-col', 'gap-6', className)}
         {...props}
       >
         <div className="grid gap-3">
@@ -131,12 +131,12 @@ export function RegisterForm({
                 Please wait
               </>
             ) : (
-              "Login"
+              'Login'
             )}
           </Button>
         </div>
         <div className="mt-4 text-center text-sm">
-          Have an account?{" "}
+          Have an account?{' '}
           <a href="/login" className="underline underline-offset-4">
             Sign in
           </a>

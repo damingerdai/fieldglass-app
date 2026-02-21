@@ -5,14 +5,14 @@ export const LEAVE_TYPE_KEYS = [
   'parental_leave',
   'marriage_leave',
   'unpaid_leave',
-  'bereavement_leave',
+  'bereavement_leave'
 ] as const;
 
-export type LeaveTypeKey = typeof LEAVE_TYPE_KEYS[number];
+export type LeaveTypeKey = (typeof LEAVE_TYPE_KEYS)[number];
 
 export interface LeaveOption {
   value: LeaveTypeKey; // Must be one of the literal strings defined in LeaveTypeKey
-  label: string;      // The user-friendly name displayed in the UI
+  label: string; // The user-friendly name displayed in the UI
 }
 
 export const LEAVE_OPTIONS: LeaveOption[] = [
@@ -22,7 +22,7 @@ export const LEAVE_OPTIONS: LeaveOption[] = [
   { value: 'parental_leave', label: 'Parental Leave' },
   { value: 'marriage_leave', label: 'Marriage Leave' },
   { value: 'unpaid_leave', label: 'Unpaid Leave' },
-  { value: 'bereavement_leave', label: 'Bereavement Leave' },
+  { value: 'bereavement_leave', label: 'Bereavement Leave' }
 ];
 
 /**

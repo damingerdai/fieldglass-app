@@ -1,5 +1,5 @@
-import { CreateLeaveEntitlementsForm } from "@/components/leave-entitlements";
+import { CreateLeaveEntitlementsForm } from '@/components/leave-entitlements';
 
 export default function Page() {
-    return <CreateLeaveEntitlementsForm />
+  return <CreateLeaveEntitlementsForm />;
 }

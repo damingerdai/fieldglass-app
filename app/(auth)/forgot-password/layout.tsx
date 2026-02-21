@@ -3,8 +3,8 @@ import {
   CardHeader,
   CardDescription,
   CardContent,
-  CardTitle,
-} from "@/components/ui/card";
+  CardTitle
+} from '@/components/ui/card';
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (

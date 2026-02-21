@@ -1,22 +1,22 @@
-import { cn } from "@/lib/utils";
-import { User } from "@supabase/supabase-js";
-import * as React from "react";
-import { UserNav } from "./user-nav";
-import Link from "next/link";
-import { CalendarDays } from "lucide-react";
+import { cn } from '@/lib/utils';
+import { User } from '@supabase/supabase-js';
+import * as React from 'react';
+import { UserNav } from './user-nav';
+import Link from 'next/link';
+import { CalendarDays } from 'lucide-react';
 
-interface NavbarProps extends React.ComponentProps<"nav"> {
+interface NavbarProps extends React.ComponentProps<'nav'> {
   title?: string;
   user?: User;
 }
 
-export const Navbar: React.FC<NavbarProps> = (props) => {
+export const Navbar: React.FC<NavbarProps> = props => {
   const { title, user, className, ...rest } = props;
 
   return (
     <nav
       className={cn(
-        "sticky top-0 z-50 w-full border-b bg-background/80 backdrop-blur-md transition-all",
+        'sticky top-0 z-50 w-full border-b bg-background/80 backdrop-blur-md transition-all',
         className
       )}
       {...rest}
@@ -30,7 +30,7 @@ export const Navbar: React.FC<NavbarProps> = (props) => {
             <CalendarDays className="h-5 w-5" />
           </div>
           <span className="hidden sm:inline-block font-bold text-xl tracking-tight uppercase">
-            {title || "Leave Flow"}
+            {title || 'Leave Flow'}
           </span>
         </Link>
 

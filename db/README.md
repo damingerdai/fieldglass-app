@@ -24,7 +24,6 @@ Creates the leave entitlements system with:
   - Supports multiple leave types (annual leave, parental leave, etc.)
   - Tracks effective and expiry dates
   - Supports half-day increments (e.g., 10.5 days)
-  
 - **Indexes**: Optimized for balance calculations
   - `idx_entitlements_user_type`: Fast lookups by user and leave type
   - `idx_entitlements_dates`: Efficient date range queries

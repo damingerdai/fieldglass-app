@@ -1,6 +1,10 @@
-import { LeaveTypeKey } from "./leave-type";
+import { LeaveTypeKey } from './leave-type';
 
-export type LeaveRequestStatus = 'pending' | 'approved' | 'rejected' | 'cancelled';
+export type LeaveRequestStatus =
+  | 'pending'
+  | 'approved'
+  | 'rejected'
+  | 'cancelled';
 
 export interface Vacation {
   id: string;
@@ -18,4 +22,4 @@ export interface Vacation {
   updated_at: Date;
 }
 
-export type Vacations = Vacation[]
+export type Vacations = Vacation[];

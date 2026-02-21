@@ -1,29 +1,28 @@
-"use client";
+'use client';
 
-import { useState } from "react";
+import { useState } from 'react';
 
-import { createClient } from "@/utils/supabase/client";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import * as z from "zod";
-import { ArrowLeft, Loader2 } from "lucide-react";
-import { toast } from "sonner";
+import { createClient } from '@/utils/supabase/client';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useForm } from 'react-hook-form';
+import * as z from 'zod';
+import { ArrowLeft, Loader2 } from 'lucide-react';
+import { toast } from 'sonner';
 import {
   Form,
   FormControl,
   FormField,
   FormItem,
   FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
-import NextLink from "next/link";
-import { getURL } from "@/lib/utils";
-
+  FormMessage
+} from '@/components/ui/form';
+import { Input } from '@/components/ui/input';
+import { Button } from '@/components/ui/button';
+import NextLink from 'next/link';
+import { getURL } from '@/lib/utils';
 
 const formSchema = z.object({
-  email: z.email("Please enter a valid email address"),
+  email: z.email('Please enter a valid email address')
 });
 
 export default function Page() {
@@ -32,8 +31,8 @@ export default function Page() {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      email: "",
-    },
+      email: ''
+    }
   });
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
@@ -41,13 +40,13 @@ export default function Page() {
 
     const { error } = await supabase.auth.resetPasswordForEmail(values.email, {
       // Use window.location.origin to dynamically handle the URL
-      redirectTo: `${getURL()}/auth/callback?next=/update-password`,
+      redirectTo: `${getURL()}/auth/callback?next=/update-password`
     });
 
     if (error) {
       toast.error(error.message);
     } else {
-      toast.success("Password reset email sent! Please check your inbox.");
+      toast.success('Password reset email sent! Please check your inbox.');
       form.reset();
     }
 

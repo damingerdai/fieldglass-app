@@ -1,6 +1,6 @@
-import { Vacations } from "@/types/vacation";
-import { LeaveBalances } from "@/types/leave-balance";
-import { createClient } from "@/utils/supabase/server";
+import { Vacations } from '@/types/vacation';
+import { LeaveBalances } from '@/types/leave-balance';
+import { createClient } from '@/utils/supabase/server';
 
 export async function fetchUserVacations(): Promise<Vacations | null> {
   const supabase = await createClient();
@@ -8,7 +8,7 @@ export async function fetchUserVacations(): Promise<Vacations | null> {
   const { data: userData, error: userError } = await supabase.auth.getUser();
 
   if (userError || !userData.user) {
-    console.error("Authentication Error:", userError?.message);
+    console.error('Authentication Error:', userError?.message);
     return null;
   }
 
@@ -21,11 +21,11 @@ export async function fetchUserVacations(): Promise<Vacations | null> {
     .order('created_at', { ascending: false });
 
   if (dbError) {
-    console.error("Database Fetch Error:", dbError.message);
+    console.error('Database Fetch Error:', dbError.message);
     return null;
   }
 
-  return vacations as Vacations
+  return vacations as Vacations;
 }
 
 export async function fetchUserLeaveBalances(): Promise<LeaveBalances | null> {
@@ -34,7 +34,7 @@ export async function fetchUserLeaveBalances(): Promise<LeaveBalances | null> {
   const { data: userData, error: userError } = await supabase.auth.getUser();
 
   if (userError || !userData.user) {
-    console.error("Authentication Error:", userError?.message);
+    console.error('Authentication Error:', userError?.message);
     return null;
   }
 
@@ -46,7 +46,7 @@ export async function fetchUserLeaveBalances(): Promise<LeaveBalances | null> {
     .eq('user_id', currentUserId);
 
   if (dbError) {
-    console.error("Database Fetch Error:", dbError.message);
+    console.error('Database Fetch Error:', dbError.message);
     return null;
   }
 
