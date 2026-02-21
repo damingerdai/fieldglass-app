@@ -1,0 +1,9 @@
+image:
+  repository: curlimages/curl
+  tag: latest
+
+cronjob:
+  schedule: "0 0 * * *"
+  apiUrl: "https://fieldglass-app.vercel.app/api/cron"
+  # 部署时通过 --set cronjob.cronSecret=xxx 覆盖
+  cronSecret: "default-placeholder-token"

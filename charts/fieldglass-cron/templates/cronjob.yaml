@@ -1,0 +1,29 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: {{ include "fieldglass-cron.fullname" . }}
+  labels:
+    {{- include "fieldglass-cron.labels" . | nindent 4 }}
+spec:
+  schedule: {{ .Values.cronjob.schedule | quote }}
+  concurrencyPolicy: Forbid
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: curl-executor
+            image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+            command:
+            - /bin/sh
+            - -c
+            - |
+              curl --location '{{ .Values.cronjob.apiUrl }}' \
+              --header "Authorization: Bearer $(CRON_SECRET)"
+            env:
+            - name: CRON_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "fieldglass-cron.fullname" . }}-secret
+                  key: CRON_SECRET
+          restartPolicy: OnFailure
