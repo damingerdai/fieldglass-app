@@ -2,6 +2,9 @@ image:
   repository: curlimages/curl
   tag: latest
 
+# Optional: set namespace here (leave empty to use the Helm release namespace)
+namespace: "fieldglass-cron"
+
 cronjob:
   schedule: "0 0 * * *"
   apiUrl: "https://fieldglass-app.vercel.app/api/cron"
