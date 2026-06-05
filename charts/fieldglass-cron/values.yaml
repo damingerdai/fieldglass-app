@@ -1,6 +1,6 @@
 image:
   repository: curlimages/curl
-  tag: latest
+  tag: 8.18.0
 
 # Optional: set namespace here (leave empty to use the Helm release namespace)
 namespace: "fieldglass-cron"
