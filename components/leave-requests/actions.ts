@@ -34,6 +34,43 @@ export async function getLeaveRequests() {
   return { success: true, data };
 }
 
+export async function getLeaveRequestById(id: string) {
+  const supabase = await createClient();
+  
+  const {
+    data: { user }
+  } = await supabase.auth.getUser();
+  if (!user) return { success: false, error: 'Unauthorized', data: null };
+
+  const { data, error } = await supabase
+    .from('leave_requests')
+    .select(
+      `
+        id,
+        user_id,
+        leave_type,
+        start_date,
+        end_date,
+        days,
+        status,
+        reason,
+        approver_id,
+        approved_at, 
+        created_at, 
+        updated_at
+      `
+    )
+    .eq('id', id)
+    .eq('user_id', user.id)
+    .single();
+
+  if (error) {
+    return { success: false, error: error.message, data: null };
+  }
+
+  return { success: true, data };
+}
+
 export async function createLeaveRequest(data: CreateLeaveRequestSchema) {
   const supabase = await createClient();
   const {

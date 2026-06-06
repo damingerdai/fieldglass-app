@@ -34,14 +34,12 @@ export default async function Page() {
           >
             <CardContent className="p-0">
               <div className="flex flex-col md:flex-row md:items-center p-8 gap-8">
-                {/* 状态与假种 */}
                 <div className="flex flex-col gap-3 min-w-[150px]">
                   <StatusBadge status={request.status} />
                   <div className="space-y-1">
                     <p className="font-bold text-base uppercase tracking-tight text-slate-800">
                       {request.leave_type} Leave
                     </p>
-                    {/* 审批来源标注：仅在已审批时显示 */}
                     {request.status === 'approved' && (
                       <div className="flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-wider text-slate-400">
                         <CheckCircle2 className="h-3 w-3 text-emerald-500" />
@@ -53,7 +51,6 @@ export default async function Page() {
                   </div>
                 </div>
 
-                {/* 日期信息 */}
                 <div className="flex-1 grid grid-cols-1 sm:grid-cols-2 gap-8">
                   <div className="flex items-center gap-4">
                     <div className="p-2.5 bg-slate-50 rounded-xl">
@@ -84,7 +81,6 @@ export default async function Page() {
                   </div>
                 </div>
 
-                {/* 备注 */}
                 {request.reason && (
                   <div className="flex-1 hidden lg:flex items-start gap-2 max-w-xs border-l border-slate-50 pl-6">
                     <FileText className="h-4 w-4 text-slate-200 shrink-0 mt-1" />
@@ -94,7 +90,6 @@ export default async function Page() {
                   </div>
                 )}
 
-                {/* 操作按钮 */}
                 <div className="flex items-center justify-end">
                   {request.status === 'pending' ? (
                     <CancelRequestButton id={request.id} />
