@@ -3,7 +3,7 @@ import { User } from '@supabase/supabase-js';
 import * as React from 'react';
 import { UserNav } from './user-nav';
 import Link from 'next/link';
-import { CalendarDays } from 'lucide-react';
+import { AlertCircle, CalendarDays, CheckCircle2 } from 'lucide-react';
 
 interface NavbarProps extends React.ComponentProps<'nav'> {
   title?: string;
@@ -12,6 +12,8 @@ interface NavbarProps extends React.ComponentProps<'nav'> {
 
 export const Navbar: React.FC<NavbarProps> = props => {
   const { title, user, className, ...rest } = props;
+
+  const isEmailVerified = !!user?.email_confirmed_at;
 
   return (
     <nav
@@ -39,13 +41,29 @@ export const Navbar: React.FC<NavbarProps> = props => {
 
         {/* Actions Section */}
         <div className="flex items-center gap-4">
-          <div className="flex flex-col items-end mr-2 hidden md:flex">
+          <div className="flex-col items-end mr-2 hidden md:flex">
             <span className="text-sm font-medium leading-none">
               {user?.email?.split('@')[0]}
             </span>
-            <span className="text-[10px] text-muted-foreground">
-              Workspace active
-            </span>
+            {user && (
+              <div className="flex items-center gap-1">
+                {isEmailVerified ? (
+                  <>
+                    <CheckCircle2 className="h-3 w-3 text-emerald-500" />
+                    <span className="text-[10px] text-emerald-600 dark:text-emerald-400 font-medium">
+                      Workspace active
+                    </span>
+                  </>
+                ) : (
+                  <>
+                    <AlertCircle className="h-3 w-3 text-amber-500" />
+                    <span className="text-[10px] text-amber-600 dark:text-amber-400 font-medium animate-pulse">
+                      Pending verification
+                    </span>
+                  </>
+                )}
+              </div>
+            )}
           </div>
           <UserNav user={user || null} />
         </div>
