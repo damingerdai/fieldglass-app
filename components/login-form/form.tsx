@@ -70,59 +70,59 @@ export function LoginForm({
 
   return (
     <Form {...form}>
-      <form action={formAction} className={cn(className)} {...props}>
-        <div className="flex flex-col gap-6">
-          <div className="grid gap-3">
-            <FormField
-              control={form.control}
-              name="email"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Email</FormLabel>
-                  <FormControl>
-                    <Input {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-          </div>
-          <div className="grid gap-3">
-            <FormField
-              control={form.control}
-              name="password"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Password</FormLabel>
-                  <FormControl>
-                    <Input {...field} type="password" />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-          </div>
-          <div className="flex justify-end">
-            <NextLink
-              href="/forgot-password"
-              className="text-sm underline underline-offset-4"
-            >
-              Forgot password?
-            </NextLink>
-          </div>
-          <div className="flex flex-col gap-3">
-            <Button type="submit" className="w-full" disabled={pending}>
-              {pending ? (
-                <>
-                  <Loader2Icon className="animate-spin" />
-                  Please wait
-                </>
-              ) : (
-                'Login'
-              )}
-            </Button>
-          </div>
+      <form action={formAction} className={cn('flex', 'flex-col', 'gap-6', className)} {...props}>
+
+        <div className="grid gap-3">
+          <FormField
+            control={form.control}
+            name="email"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Email</FormLabel>
+                <FormControl>
+                  <Input {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
         </div>
+        <div className="grid gap-3">
+          <FormField
+            control={form.control}
+            name="password"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Password</FormLabel>
+                <FormControl>
+                  <Input {...field} type="password" />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </div>
+        <div className="flex justify-end">
+          <NextLink
+            href="/forgot-password"
+            className="text-sm underline underline-offset-4"
+          >
+            Forgot password?
+          </NextLink>
+        </div>
+        <div className="flex flex-col gap-3">
+          <Button type="submit" className="w-full" disabled={pending}>
+            {pending ? (
+              <>
+                <Loader2Icon className="animate-spin" />
+                Please wait
+              </>
+            ) : (
+              'Login'
+            )}
+          </Button>
+        </div>
+
 
         <div className="mt-4 text-center text-sm">
           Don&apos;t have an account?{' '}

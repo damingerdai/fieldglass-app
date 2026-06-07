@@ -131,7 +131,7 @@ export function RegisterForm({
                 Please wait
               </>
             ) : (
-              'Login'
+              'Register'
             )}
           </Button>
         </div>
