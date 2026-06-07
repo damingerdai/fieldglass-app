@@ -13,7 +13,7 @@ import {
   CalendarCheck2,
   ChevronRight,
   LayoutDashboard,
-  SendHorizontal,
+  SendHorizontal
 } from 'lucide-react';
 import Link from 'next/link';
 import { cn } from '@/lib/utils';
@@ -87,7 +87,10 @@ export const Aside: React.FC = () => {
           </SidebarMenu>
         </SidebarGroupContent>
       </SidebarGroup>
-      <Link href="/premium-upgrade" className="mt-auto p-4 mx-4 mb-6 rounded-2xl bg-gradient-to-br from-[#7C3AED]/5 to-[#F4EEFC] border border-[#F4EEFC]">
+      <Link
+        href="/premium-upgrade"
+        className="mt-auto p-4 mx-4 mb-6 rounded-2xl bg-gradient-to-br from-[#7C3AED]/5 to-[#F4EEFC] border border-[#F4EEFC]"
+      >
         <p className="text-[12px] font-semibold text-[#7C3AED]">Premium Plan</p>
         <p className="text-[11px] text-[#7C3AED]/60">
           Manage leave efficiently.

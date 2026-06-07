@@ -35,8 +35,9 @@ export const ConfirmSignupEmail = () => {
             </Text>
 
             <Text className="text-[#374151] text-[14px] leading-[24px] m-0">
-              Thanks for signing up for <strong>Fieldglass App</strong>! Please click the button below 
-              to verify your email address and activate your account.
+              Thanks for signing up for <strong>Fieldglass App</strong>! Please
+              click the button below to verify your email address and activate
+              your account.
             </Text>
 
             <Section className="mt-[32px] mb-[32px] text-center">
@@ -49,7 +50,7 @@ export const ConfirmSignupEmail = () => {
             </Section>
 
             <Text className="text-[#6b7280] text-[13px] leading-[22px]">
-              If you didn't create an account, you can safely ignore this email. 
+              If you didn't create an account, you can safely ignore this email.
               This verification link is only valid for the next 24 hours.
             </Text>
 

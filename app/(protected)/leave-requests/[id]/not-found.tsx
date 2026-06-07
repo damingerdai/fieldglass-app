@@ -14,19 +14,30 @@ export default function LeaveNotFound() {
           Request Not Found
         </h2>
         <p className="text-sm text-slate-500 leading-relaxed">
-          The leave request you are looking for doesn&apos;t exist, or you might not have permission to view it.
+          The leave request you are looking for doesn&apos;t exist, or you might
+          not have permission to view it.
         </p>
       </div>
 
       <div className="flex flex-col sm:flex-row items-center gap-3 w-full">
-        <Button variant="outline" asChild className="rounded-xl w-full sm:flex-1">
-          <Link href="/leave-requests" className="flex items-center justify-center gap-2">
+        <Button
+          variant="outline"
+          asChild
+          className="rounded-xl w-full sm:flex-1"
+        >
+          <Link
+            href="/leave-requests"
+            className="flex items-center justify-center gap-2"
+          >
             <ArrowLeft className="h-4 w-4" />
             Back to List
           </Link>
         </Button>
         <Button asChild className="rounded-xl w-full sm:flex-1">
-          <Link href="/leave-requests/create" className="flex items-center justify-center gap-2">
+          <Link
+            href="/leave-requests/create"
+            className="flex items-center justify-center gap-2"
+          >
             <Plus className="h-4 w-4" />
             New Request
           </Link>

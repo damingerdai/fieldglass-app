@@ -2,7 +2,14 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { StatusBadge } from '@/components/user-balances/status-badge';
 import { format } from 'date-fns';
-import { Calendar, Clock, FileText, ChevronLeft, User, CalendarDays } from 'lucide-react';
+import {
+  Calendar,
+  Clock,
+  FileText,
+  ChevronLeft,
+  User,
+  CalendarDays
+} from 'lucide-react';
 import Link from 'next/link';
 import { notFound, redirect } from 'next/navigation';
 import { getLeaveRequestById } from '@/components/leave-requests/actions';
@@ -14,7 +21,7 @@ interface PageProps {
 
 export default async function LeaveRequestDetailsPage({ params }: PageProps) {
   const { id } = await params;
-  
+
   const { data: request, success, error } = await getLeaveRequestById(id);
 
   if (!success && error === 'Unauthorized') {
@@ -28,13 +35,18 @@ export default async function LeaveRequestDetailsPage({ params }: PageProps) {
   return (
     <div className="p-4 md:p-8 space-y-6 max-w-3xl mx-auto">
       <div className="flex items-center justify-between">
-        <Button variant="ghost" size="sm" asChild className="rounded-xl text-slate-500 hover:text-slate-900">
+        <Button
+          variant="ghost"
+          size="sm"
+          asChild
+          className="rounded-xl text-slate-500 hover:text-slate-900"
+        >
           <Link href="/leave-requests" className="flex items-center gap-1">
             <ChevronLeft className="h-4 w-4" />
             Back to Requests
           </Link>
         </Button>
-        
+
         {request.status === 'pending' && (
           <CancelRequestButton id={request.id} />
         )}
@@ -86,7 +98,10 @@ export default async function LeaveRequestDetailsPage({ params }: PageProps) {
                   Duration
                 </p>
                 <p className="text-2xl font-black text-slate-900">
-                  {request.days} <span className="text-sm font-medium text-slate-500">Days</span>
+                  {request.days}{' '}
+                  <span className="text-sm font-medium text-slate-500">
+                    Days
+                  </span>
                 </p>
               </div>
             </div>
@@ -101,7 +116,9 @@ export default async function LeaveRequestDetailsPage({ params }: PageProps) {
               {request.reason ? (
                 <span>&ldquo;{request.reason}&rdquo;</span>
               ) : (
-                <span className="text-slate-300 italic">No reason provided for this request.</span>
+                <span className="text-slate-300 italic">
+                  No reason provided for this request.
+                </span>
               )}
             </div>
           </div>
@@ -109,7 +126,9 @@ export default async function LeaveRequestDetailsPage({ params }: PageProps) {
           <div className="border-t border-slate-100 pt-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4 text-xs text-slate-400">
             <div className="flex items-center gap-2">
               <CalendarDays className="h-4 w-4 text-slate-300" />
-              <span>Submitted on {format(new Date(request.created_at), 'PPP p')}</span>
+              <span>
+                Submitted on {format(new Date(request.created_at), 'PPP p')}
+              </span>
             </div>
 
             {request.status === 'approved' && (
@@ -118,7 +137,9 @@ export default async function LeaveRequestDetailsPage({ params }: PageProps) {
                   <User className="h-3.5 w-3.5" />
                   <span>
                     Approved by:{' '}
-                    {request.approver_id === request.user_id ? 'Self' : 'Manager'}
+                    {request.approver_id === request.user_id
+                      ? 'Self'
+                      : 'Manager'}
                   </span>
                 </div>
                 {request.approved_at && (

@@ -15,12 +15,12 @@ export async function subscribeEmail(formData: FormData) {
 
   try {
     await resend.contacts.create({
-      email: email,
+      email: email
     });
 
     const { error: segmentError } = await resend.contacts.segments.add({
       email: email,
-      segmentId: SEGMENT_ID,
+      segmentId: SEGMENT_ID
     });
 
     if (segmentError) {

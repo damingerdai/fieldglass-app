@@ -36,7 +36,7 @@ export async function getLeaveRequests() {
 
 export async function getLeaveRequestById(id: string) {
   const supabase = await createClient();
-  
+
   const {
     data: { user }
   } = await supabase.auth.getUser();

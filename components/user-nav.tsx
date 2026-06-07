@@ -6,7 +6,8 @@ import {
   LogOut,
   Settings,
   User as UserIcon,
-  ShieldCheck
+  ShieldCheck,
+  AlertCircle
 } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { UserAvatar } from './user-avatar';
@@ -19,6 +20,7 @@ import {
   DropdownMenuTrigger
 } from '@/components/ui/dropdown-menu';
 import { createClient } from '@/utils/supabase/client';
+import { cn } from '@/lib/utils';
 
 interface UserNavProps {
   user: User | null;
@@ -27,6 +29,8 @@ interface UserNavProps {
 export function UserNav({ user }: UserNavProps) {
   const router = useRouter();
   const supabase = createClient();
+
+  const isEmailVerified = !!user?.email_confirmed_at;
 
   const handleLogout = async () => {
     await supabase.auth.signOut();
@@ -52,9 +56,25 @@ export function UserNav({ user }: UserNavProps) {
             <DropdownMenuLabel className="font-normal p-2">
               <div className="flex flex-col space-y-2">
                 <div className="flex items-center gap-2">
-                  <div className="p-1 bg-primary/10 rounded-md text-[10px] font-bold text-primary flex items-center gap-1">
-                    <ShieldCheck className="h-3 w-3" />
-                    ACTIVE
+                  <div
+                    className={cn(
+                      'p-1 px-1.5 rounded-md text-[10px] font-bold flex items-center gap-1 w-fit',
+                      isEmailVerified
+                        ? 'bg-emerald-50 text-emerald-700 dark:bg-emerald-950/30 dark:text-emerald-400'
+                        : 'bg-amber-50 text-amber-700 dark:bg-amber-950/30 dark:text-amber-400 animate-pulse'
+                    )}
+                  >
+                    {isEmailVerified ? (
+                      <>
+                        <ShieldCheck className="h-3 w-3" />
+                        ACTIVE
+                      </>
+                    ) : (
+                      <>
+                        <AlertCircle className="h-3 w-3" />
+                        PENDING VERIFICATION
+                      </>
+                    )}
                   </div>
                 </div>
                 <div>

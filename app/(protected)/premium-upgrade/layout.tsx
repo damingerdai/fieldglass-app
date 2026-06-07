@@ -4,14 +4,17 @@ import React from 'react';
 import Link from 'next/link';
 
 export default function PremiumUpgradeLayout({
-  children,
+  children
 }: {
   children: React.ReactNode;
 }) {
   return (
     <div className="bg-slate-50 flex flex-col items-center justify-center p-6 text-slate-800">
       <div className="w-full max-w-2xl mb-8">
-        <Link href="/dashboard" className="text-sm text-[#7C3AED] hover:underline flex items-center gap-1">
+        <Link
+          href="/dashboard"
+          className="text-sm text-[#7C3AED] hover:underline flex items-center gap-1"
+        >
           ← Back to Dashboard
         </Link>
       </div>
