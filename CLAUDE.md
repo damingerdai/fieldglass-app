@@ -43,6 +43,7 @@ A Next.js 16 App Router leave-management app backed by Supabase (auth + Postgres
 ## Environment variables
 
 Required in `.env.local`:
+
 - `NEXT_PUBLIC_SUPABASE_URL` / `NEXT_PUBLIC_SUPABASE_ANON_KEY` — Supabase project
 - `SUPABASE_SERVICE_ROLE_KEY` — used only in trusted server contexts
 - `CRON_SECRET` — Bearer token checked by `/api/cron`
