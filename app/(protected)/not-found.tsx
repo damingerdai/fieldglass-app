@@ -10,8 +10,8 @@ export default function GlobalNotFound() {
         Sorry, the page you are looking for doesn&apos;t exist or has been
         moved.
       </p>
-      <Button asChild className="mt-6 rounded-xl">
-        <Link href="/">Back to Dashboard</Link>
+      <Button render={<Link href="/" />} className="mt-6 rounded-xl">
+        Back to Dashboard
       </Button>
     </div>
   );

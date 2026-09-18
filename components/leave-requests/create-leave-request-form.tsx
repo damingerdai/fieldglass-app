@@ -143,24 +143,26 @@ export function CreateLeaveRequestForm({
             <FormItem className="flex flex-col">
               <FormLabel>Start Date</FormLabel>
               <Popover>
-                <PopoverTrigger asChild>
-                  <FormControl>
-                    <Button
-                      variant={'outline'}
-                      className={cn(
-                        'w-full pl-3 text-left font-normal',
-                        !field.value && 'text-muted-foreground'
-                      )}
-                    >
-                      {field.value ? (
-                        format(field.value, 'PPP')
-                      ) : (
-                        <span>Pick a date</span>
-                      )}
-                      <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
-                    </Button>
-                  </FormControl>
-                </PopoverTrigger>
+                <FormControl>
+                  <PopoverTrigger
+                    render={
+                      <Button
+                        variant={'outline'}
+                        className={cn(
+                          'w-full pl-3 text-left font-normal',
+                          !field.value && 'text-muted-foreground'
+                        )}
+                      />
+                    }
+                  >
+                    {field.value ? (
+                      format(field.value, 'PPP')
+                    ) : (
+                      <span>Pick a date</span>
+                    )}
+                    <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+                  </PopoverTrigger>
+                </FormControl>
                 <PopoverContent className="w-auto p-0" align="start">
                   <Calendar
                     mode="single"
@@ -222,8 +224,8 @@ export function CreateLeaveRequestForm({
           )}
         />
         <div className="flex justify-end gap-4 pt-4">
-          <Button variant="outline" asChild>
-            <Link href="/leave-requests">Cancel</Link>
+          <Button variant="outline" render={<Link href="/leave-requests" />}>
+            Cancel
           </Button>
           <Button type="submit" disabled={isPending}>
             {isPending ? (

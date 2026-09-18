@@ -12,11 +12,18 @@ import Link from 'next/link';
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <div className="max-w-2xl mx-auto space-y-6">
-      <Button variant="ghost" asChild className="-ml-4 text-muted-foreground">
-        <Link href="/leave-entitlements" className="flex items-center gap-1">
-          <ChevronLeft className="w-4 h-4" />
-          Back to List
-        </Link>
+      <Button
+        variant="ghost"
+        className="-ml-4 text-muted-foreground"
+        render={
+          <Link
+            href="/leave-entitlements"
+            className="flex items-center gap-1"
+          />
+        }
+      >
+        <ChevronLeft className="w-4 h-4" />
+        Back to List
       </Button>
       <Card>
         <CardHeader>

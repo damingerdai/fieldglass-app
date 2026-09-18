@@ -39,14 +39,18 @@ export default async function Page() {
         </div>
 
         <div className="flex items-center gap-2">
-          <Button asChild size="sm" className="shadow-sm">
-            <Link
-              href="/leave-entitlements/create"
-              className="flex items-center gap-1"
-            >
-              <Plus className="w-4 h-4" />
-              <span>Create Entitlement</span>
-            </Link>
+          <Button
+            size="sm"
+            className="shadow-sm"
+            render={
+              <Link
+                href="/leave-entitlements/create"
+                className="flex items-center gap-1"
+              />
+            }
+          >
+            <Plus className="w-4 h-4" />
+            <span>Create Entitlement</span>
           </Button>
         </div>
       </div>
@@ -108,8 +112,11 @@ export default async function Page() {
             You haven&apos;t added any leave entitlements yet. Records will
             appear here once created.
           </p>
-          <Button variant="outline" asChild>
-            <Link href="/leave-entitlements/create">Get Started</Link>
+          <Button
+            variant="outline"
+            render={<Link href="/leave-entitlements/create" />}
+          >
+            Get Started
           </Button>
         </div>
       ) : (

@@ -38,13 +38,13 @@ export default async function LeaveRequestDetailsPage({ params }: PageProps) {
         <Button
           variant="ghost"
           size="sm"
-          asChild
           className="rounded-xl text-slate-500 hover:text-slate-900"
+          render={
+            <Link href="/leave-requests" className="flex items-center gap-1" />
+          }
         >
-          <Link href="/leave-requests" className="flex items-center gap-1">
-            <ChevronLeft className="h-4 w-4" />
-            Back to Requests
-          </Link>
+          <ChevronLeft className="h-4 w-4" />
+          Back to Requests
         </Button>
 
         {request.status === 'pending' && (

@@ -1,11 +1,12 @@
 import * as React from 'react';
 import { cn } from '@/lib/utils';
-import { Slot } from '@radix-ui/react-slot';
+import { mergeProps } from '@base-ui/react/merge-props';
+import { useRender } from '@base-ui/react/use-render';
 import { cva, VariantProps } from 'class-variance-authority';
 import { Tooltip, TooltipTrigger, TooltipContent } from './ui/tooltip';
 
 const sidebarMenuButtonVariants = cva(
-  'peer/menu-button flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left text-sm outline-hidden ring-sidebar-ring transition-[width,height,padding] hover:bg-sidebar-accent hover:text-sidebar-accent-foreground focus-visible:ring-2 active:bg-sidebar-accent active:text-sidebar-accent-foreground disabled:pointer-events-none disabled:opacity-50 group-has-data-[sidebar=menu-action]/menu-item:pr-8 aria-disabled:pointer-events-none aria-disabled:opacity-50 data-[active=true]:bg-sidebar-accent data-[active=true]:font-medium data-[active=true]:text-sidebar-accent-foreground data-[state=open]:hover:bg-sidebar-accent data-[state=open]:hover:text-sidebar-accent-foreground group-data-[collapsible=icon]:size-8! group-data-[collapsible=icon]:p-2! [&>span:last-child]:truncate [&>svg]:size-4 [&>svg]:shrink-0',
+  'peer/menu-button flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left text-sm outline-hidden ring-sidebar-ring transition-[width,height,padding] hover:bg-sidebar-accent hover:text-sidebar-accent-foreground focus-visible:ring-2 active:bg-sidebar-accent active:text-sidebar-accent-foreground disabled:pointer-events-none disabled:opacity-50 group-has-data-[sidebar=menu-action]/menu-item:pr-8 aria-disabled:pointer-events-none aria-disabled:opacity-50 data-active:bg-sidebar-accent data-active:font-medium data-active:text-sidebar-accent-foreground data-open:hover:bg-sidebar-accent data-open:hover:text-sidebar-accent-foreground group-data-[collapsible=icon]:size-8! group-data-[collapsible=icon]:p-2! [&>span:last-child]:truncate [&>svg]:size-4 [&>svg]:shrink-0',
   {
     variants: {
       variant: {
@@ -27,34 +28,38 @@ const sidebarMenuButtonVariants = cva(
 );
 
 export function SidebarMenuButton({
-  asChild = false,
+  render,
   isActive = false,
   variant = 'default',
   size = 'default',
   tooltip,
   className,
   ...props
-}: React.ComponentProps<'button'> & {
-  asChild?: boolean;
+}: useRender.ComponentProps<'button'> & {
   isActive?: boolean;
   tooltip?: string | React.ComponentProps<typeof TooltipContent>;
 } & VariantProps<typeof sidebarMenuButtonVariants>) {
-  const Comp = asChild ? Slot : 'button';
   //  const { isMobile, state } = useSidebar();
 
-  const button = (
-    <Comp
-      data-slot="sidebar-menu-button"
-      data-sidebar="menu-button"
-      data-size={size}
-      data-active={isActive}
-      className={cn(sidebarMenuButtonVariants({ variant, size }), className)}
-      {...props}
-    />
-  );
+  const comp = useRender({
+    defaultTagName: 'button',
+    props: mergeProps<'button'>(
+      {
+        className: cn(sidebarMenuButtonVariants({ variant, size }), className)
+      },
+      props
+    ),
+    render: !tooltip ? render : <TooltipTrigger render={render} />,
+    state: {
+      slot: 'sidebar-menu-button',
+      sidebar: 'menu-button',
+      size,
+      active: isActive
+    }
+  });
 
   if (!tooltip) {
-    return button;
+    return comp;
   }
 
   if (typeof tooltip === 'string') {
@@ -65,13 +70,8 @@ export function SidebarMenuButton({
 
   return (
     <Tooltip>
-      <TooltipTrigger asChild>{button}</TooltipTrigger>
-      <TooltipContent
-        side="right"
-        align="center"
-        //hidden={state !== "collapsed" || isMobile}
-        {...tooltip}
-      />
+      {comp}
+      <TooltipContent side="right" align="center" {...tooltip} />
     </Tooltip>
   );
 }

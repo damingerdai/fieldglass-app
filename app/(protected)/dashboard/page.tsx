@@ -154,10 +154,10 @@ export default async function Page() {
               <Button
                 variant="ghost"
                 size="sm"
-                asChild
                 className="text-[#7C3AED]"
+                render={<Link href="/leave-entitlements" />}
               >
-                <Link href="/leave-entitlements">View All</Link>
+                View All
               </Button>
             </CardHeader>
             <CardContent>
@@ -198,31 +198,30 @@ export default async function Page() {
               <CardDescription>Ready for a break?</CardDescription>
             </CardHeader>
             <CardContent className="space-y-3">
-              <Button asChild className="w-full justify-start py-6 shadow-sm">
-                <Link href="/leave-requests/create">
-                  <Plus className="mr-2 h-5 w-5" />
-                  <div className="flex flex-col items-start">
-                    <span>Apply for Leave</span>
-                    <span className="text-[10px] font-normal opacity-80">
-                      Submit a new request
-                    </span>
-                  </div>
-                </Link>
+              <Button
+                className="w-full justify-start py-6 shadow-sm"
+                render={<Link href="/leave-requests/create" />}
+              >
+                <Plus className="mr-2 h-5 w-5" />
+                <div className="flex flex-col items-start">
+                  <span>Apply for Leave</span>
+                  <span className="text-[10px] font-normal opacity-80">
+                    Submit a new request
+                  </span>
+                </div>
               </Button>
               <Button
                 variant="outline"
-                asChild
                 className="w-full justify-start py-7 border-slate-200 hover:bg-white hover:border-[#7C3AED] hover:text-[#7C3AED] transition-all"
+                render={<Link href="/leave-entitlements/create" />}
               >
-                <Link href="/leave-entitlements/create">
-                  <History className="mr-3 h-5 w-5 opacity-60" />
-                  <div className="flex flex-col items-start">
-                    <span className="font-semibold">Add Entitlement</span>
-                    <span className="text-[10px] font-normal text-muted-foreground">
-                      Adjust user balances
-                    </span>
-                  </div>
-                </Link>
+                <History className="mr-3 h-5 w-5 opacity-60" />
+                <div className="flex flex-col items-start">
+                  <span className="font-semibold">Add Entitlement</span>
+                  <span className="text-[10px] font-normal text-muted-foreground">
+                    Adjust user balances
+                  </span>
+                </div>
               </Button>
             </CardContent>
           </Card>

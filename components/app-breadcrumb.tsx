@@ -45,8 +45,8 @@ export function AppBreadcrumb({ items, showHome = false }: AppBreadcrumbProps) {
                     {item.label}
                   </BreadcrumbPage>
                 ) : (
-                  <BreadcrumbLink asChild>
-                    <Link href={item.href || '#'}>{item.label}</Link>
+                  <BreadcrumbLink render={<Link href={item.href || '#'} />}>
+                    {item.label}
                   </BreadcrumbLink>
                 )}
               </BreadcrumbItem>
