@@ -49,6 +49,17 @@ export async function onSubmitAction(
       errors: error?.message
     };
   }
+
+  const { data: aal, error: aalError } =
+    await supabase.auth.mfa.getAuthenticatorAssuranceLevel();
+  if (
+    !aalError &&
+    aal.nextLevel === 'aal2' &&
+    aal.nextLevel !== aal.currentLevel
+  ) {
+    redirect('/mfa');
+  }
+
   revalidatePath('/', 'layout');
   redirect('/dashboard');
 }
