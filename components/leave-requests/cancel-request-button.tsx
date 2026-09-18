@@ -33,15 +33,17 @@ export function CancelRequestButton({ id }: { id: string }) {
 
   return (
     <AlertDialog>
-      <AlertDialogTrigger asChild>
-        <Button
-          variant="ghost"
-          size="sm"
-          className="text-slate-400 hover:text-rose-600 hover:bg-rose-50 transition-all rounded-xl group"
-        >
-          <Trash2 className="h-4 w-4 mr-2" />
-          Cancel
-        </Button>
+      <AlertDialogTrigger
+        render={
+          <Button
+            variant="ghost"
+            size="sm"
+            className="text-slate-400 hover:text-rose-600 hover:bg-rose-50 transition-all rounded-xl group"
+          />
+        }
+      >
+        <Trash2 className="h-4 w-4 mr-2" />
+        Cancel
       </AlertDialogTrigger>
 
       <AlertDialogContent className="rounded-2xl border-slate-100 max-w-[400px]">

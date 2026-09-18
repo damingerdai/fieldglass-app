@@ -8,16 +8,14 @@ import {
   SheetContent,
   SheetDescription,
   SheetTitle,
-  SheetTrigger,
+  SheetTrigger
 } from '@/components/ui/sheet';
 
 export function MobileAside() {
   return (
     <Sheet>
-      <SheetTrigger asChild>
-        <button className="p-2">
-          <Menu className="h-5 w-5" />
-        </button>
+      <SheetTrigger render={<button className="p-2" />}>
+        <Menu className="h-5 w-5" />
       </SheetTrigger>
 
       <SheetContent side="left" className="p-0 w-[280px]">

@@ -22,25 +22,28 @@ export default function LeaveNotFound() {
       <div className="flex flex-col sm:flex-row items-center gap-3 w-full">
         <Button
           variant="outline"
-          asChild
           className="rounded-xl w-full sm:flex-1"
+          render={
+            <Link
+              href="/leave-requests"
+              className="flex items-center justify-center gap-2"
+            />
+          }
         >
-          <Link
-            href="/leave-requests"
-            className="flex items-center justify-center gap-2"
-          >
-            <ArrowLeft className="h-4 w-4" />
-            Back to List
-          </Link>
+          <ArrowLeft className="h-4 w-4" />
+          Back to List
         </Button>
-        <Button asChild className="rounded-xl w-full sm:flex-1">
-          <Link
-            href="/leave-requests/create"
-            className="flex items-center justify-center gap-2"
-          >
-            <Plus className="h-4 w-4" />
-            New Request
-          </Link>
+        <Button
+          className="rounded-xl w-full sm:flex-1"
+          render={
+            <Link
+              href="/leave-requests/create"
+              className="flex items-center justify-center gap-2"
+            />
+          }
+        >
+          <Plus className="h-4 w-4" />
+          New Request
         </Button>
       </div>
     </div>

@@ -39,17 +39,18 @@ export function UserNav({ user }: UserNavProps) {
 
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <button className="relative group h-9 w-9 rounded-xl overflow-hidden focus:outline-none ring-offset-background transition-all hover:ring-2 hover:ring-primary/20 hover:ring-offset-2 active:scale-95 shadow-sm border border-slate-200">
-          <UserAvatar email={user?.email ?? ''} />
-          <div className="absolute inset-0 bg-black/5 opacity-0 group-hover:opacity-100 transition-opacity" />
-        </button>
+      <DropdownMenuTrigger
+        render={
+          <button className="relative group h-9 w-9 rounded-xl overflow-hidden focus:outline-none ring-offset-background transition-all hover:ring-2 hover:ring-primary/20 hover:ring-offset-2 active:scale-95 shadow-sm border border-slate-200" />
+        }
+      >
+        <UserAvatar email={user?.email ?? ''} />
+        <div className="absolute inset-0 bg-black/5 opacity-0 group-hover:opacity-100 transition-opacity" />
       </DropdownMenuTrigger>
 
       <DropdownMenuContent
         align="end"
         className="w-64 p-2 shadow-xl rounded-xl border-slate-100"
-        forceMount
       >
         {user ? (
           <>

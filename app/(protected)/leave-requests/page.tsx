@@ -20,10 +20,8 @@ export default async function Page() {
             Track and manage your leave applications.
           </p>
         </div>
-        <Button asChild>
-          <Link href="/leave-requests/create">
-            <Plus className="mr-2 h-4 w-4" /> New Request
-          </Link>
+        <Button render={<Link href="/leave-requests/create" />}>
+          <Plus className="mr-2 h-4 w-4" /> New Request
         </Button>
       </div>
       <div className="grid gap-4">
@@ -97,12 +95,10 @@ export default async function Page() {
                     <Button
                       variant="ghost"
                       size="sm"
-                      asChild
                       className="text-slate-400 hover:text-slate-900 rounded-xl"
+                      render={<Link href={`/leave-requests/${request.id}`} />}
                     >
-                      <Link href={`/leave-requests/${request.id}`}>
-                        Details
-                      </Link>
+                      Details
                     </Button>
                   )}
                 </div>
@@ -115,10 +111,12 @@ export default async function Page() {
             <p className="text-slate-400 italic">
               You haven&apos;t submitted any leave requests yet.
             </p>
-            <Button variant="link" asChild className="mt-2">
-              <Link href="/leave-requests/create">
-                Apply for your first leave now
-              </Link>
+            <Button
+              variant="link"
+              className="mt-2"
+              render={<Link href="/leave-requests/create" />}
+            >
+              Apply for your first leave now
             </Button>
           </div>
         )}

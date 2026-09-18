@@ -1,5 +1,6 @@
 import * as React from 'react';
-import { Slot } from '@radix-ui/react-slot';
+import { mergeProps } from '@base-ui/react/merge-props';
+import { useRender } from '@base-ui/react/use-render';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@/lib/utils';
 import { Loader2 } from 'lucide-react';
@@ -37,24 +38,33 @@ interface AppSpinnerProps
     React.HTMLAttributes<HTMLElement>,
     VariantProps<typeof appSpinnerVariants>,
     VariantProps<typeof appLoaderVariants> {
-  asChild?: boolean;
+  render?: React.ReactElement;
 }
 
 function AppSpinner({
   className,
   size,
   show,
-  asChild = false,
+  render,
+  children,
   ...props
 }: AppSpinnerProps) {
-  const Comp = asChild ? Slot : 'span';
-
-  return (
-    <Comp className={cn(appSpinnerVariants({ show }), className)} {...props}>
-      <Loader2 className={appLoaderVariants({ size })} />
-      {props.children}
-    </Comp>
-  );
+  return useRender({
+    defaultTagName: 'span',
+    props: mergeProps<'span'>(
+      {
+        className: cn(appSpinnerVariants({ show }), className),
+        children: (
+          <>
+            <Loader2 className={appLoaderVariants({ size })} />
+            {children}
+          </>
+        )
+      },
+      props as React.ComponentProps<'span'>
+    ),
+    render
+  });
 }
 
 export { AppSpinner, appSpinnerVariants, appLoaderVariants };

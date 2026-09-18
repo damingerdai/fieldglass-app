@@ -46,7 +46,12 @@ export const Aside: React.FC = () => {
               return (
                 <SidebarMenuItem key={item.href}>
                   <SidebarMenuButton
-                    asChild
+                    render={
+                      <Link
+                        href={item.href}
+                        className="w-full flex items-center"
+                      />
+                    }
                     isActive={isActive}
                     className={cn(
                       'group relative flex items-center gap-3 px-3 py-6 rounded-xl transition-all duration-300',
@@ -55,31 +60,29 @@ export const Aside: React.FC = () => {
                         : 'text-slate-500 hover:bg-slate-50 hover:text-slate-900'
                     )}
                   >
-                    <Link href={item.href} className="w-full flex items-center">
-                      <div
-                        className={cn(
-                          'flex items-center justify-center p-1.5 rounded-lg transition-colors',
-                          isActive
-                            ? 'bg-white shadow-sm'
-                            : 'group-hover:text-slate-900'
-                        )}
-                      >
-                        <item.icon size={18} strokeWidth={isActive ? 2.5 : 2} />
-                      </div>
-
-                      <span
-                        className={cn(
-                          'ml-1 font-medium text-[14px] transition-all',
-                          isActive ? 'translate-x-0.5' : ''
-                        )}
-                      >
-                        {item.title}
-                      </span>
-
-                      {isActive && (
-                        <ChevronRight className="ml-auto w-4 h-4 opacity-50 animate-in slide-in-from-left-2 duration-300" />
+                    <div
+                      className={cn(
+                        'flex items-center justify-center p-1.5 rounded-lg transition-colors',
+                        isActive
+                          ? 'bg-white shadow-sm'
+                          : 'group-hover:text-slate-900'
                       )}
-                    </Link>
+                    >
+                      <item.icon size={18} strokeWidth={isActive ? 2.5 : 2} />
+                    </div>
+
+                    <span
+                      className={cn(
+                        'ml-1 font-medium text-[14px] transition-all',
+                        isActive ? 'translate-x-0.5' : ''
+                      )}
+                    >
+                      {item.title}
+                    </span>
+
+                    {isActive && (
+                      <ChevronRight className="ml-auto w-4 h-4 opacity-50 animate-in slide-in-from-left-2 duration-300" />
+                    )}
                   </SidebarMenuButton>
                 </SidebarMenuItem>
               );
