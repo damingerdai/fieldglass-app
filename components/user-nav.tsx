@@ -16,6 +16,7 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuLabel,
+  DropdownMenuGroup,
   DropdownMenuSeparator,
   DropdownMenuTrigger
 } from '@/components/ui/dropdown-menu';
@@ -54,40 +55,42 @@ export function UserNav({ user }: UserNavProps) {
       >
         {user ? (
           <>
-            <DropdownMenuLabel className="font-normal p-2">
-              <div className="flex flex-col space-y-2">
-                <div className="flex items-center gap-2">
-                  <div
-                    className={cn(
-                      'p-1 px-1.5 rounded-md text-[10px] font-bold flex items-center gap-1 w-fit',
-                      isEmailVerified
-                        ? 'bg-emerald-50 text-emerald-700 dark:bg-emerald-950/30 dark:text-emerald-400'
-                        : 'bg-amber-50 text-amber-700 dark:bg-amber-950/30 dark:text-amber-400 animate-pulse'
-                    )}
-                  >
-                    {isEmailVerified ? (
-                      <>
-                        <ShieldCheck className="h-3 w-3" />
-                        ACTIVE
-                      </>
-                    ) : (
-                      <>
-                        <AlertCircle className="h-3 w-3" />
-                        PENDING VERIFICATION
-                      </>
-                    )}
+            <DropdownMenuGroup>
+              <DropdownMenuLabel className="font-normal p-2">
+                <div className="flex flex-col space-y-2">
+                  <div className="flex items-center gap-2">
+                    <div
+                      className={cn(
+                        'p-1 px-1.5 rounded-md text-[10px] font-bold flex items-center gap-1 w-fit',
+                        isEmailVerified
+                          ? 'bg-emerald-50 text-emerald-700 dark:bg-emerald-950/30 dark:text-emerald-400'
+                          : 'bg-amber-50 text-amber-700 dark:bg-amber-950/30 dark:text-amber-400 animate-pulse'
+                      )}
+                    >
+                      {isEmailVerified ? (
+                        <>
+                          <ShieldCheck className="h-3 w-3" />
+                          ACTIVE
+                        </>
+                      ) : (
+                        <>
+                          <AlertCircle className="h-3 w-3" />
+                          PENDING VERIFICATION
+                        </>
+                      )}
+                    </div>
+                  </div>
+                  <div>
+                    <p className="text-sm font-semibold leading-none text-slate-900 truncate capitalize">
+                      {user.email?.split('@')[0]}
+                    </p>
+                    <p className="text-[11px] font-medium leading-tight text-slate-400 truncate mt-1">
+                      {user.email}
+                    </p>
                   </div>
                 </div>
-                <div>
-                  <p className="text-sm font-semibold leading-none text-slate-900 truncate capitalize">
-                    {user.email?.split('@')[0]}
-                  </p>
-                  <p className="text-[11px] font-medium leading-tight text-slate-400 truncate mt-1">
-                    {user.email}
-                  </p>
-                </div>
-              </div>
-            </DropdownMenuLabel>
+              </DropdownMenuLabel>
+            </DropdownMenuGroup>
 
             <DropdownMenuSeparator className="my-2 bg-slate-50" />
 
