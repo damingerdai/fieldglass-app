@@ -96,6 +96,14 @@ export function UserNav({ user }: UserNavProps) {
 
             <DropdownMenuItem
               className="flex items-center px-3 py-2.5 rounded-lg text-slate-600 focus:bg-[#F4EEFC] focus:text-[#7C3AED] transition-colors cursor-pointer group"
+              onClick={() => router.push('/profile')}
+            >
+              <UserIcon className="mr-3 h-4 w-4 text-slate-400 group-focus:text-[#7C3AED]" />
+              <span className="font-medium">Profile</span>
+            </DropdownMenuItem>
+
+            <DropdownMenuItem
+              className="flex items-center px-3 py-2.5 rounded-lg text-slate-600 focus:bg-[#F4EEFC] focus:text-[#7C3AED] transition-colors cursor-pointer group"
               onClick={() => router.push('/settings')}
             >
               <Settings className="mr-3 h-4 w-4 text-slate-400 group-focus:text-[#7C3AED]" />

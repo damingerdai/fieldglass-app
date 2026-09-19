@@ -13,7 +13,8 @@ import {
   CalendarCheck2,
   ChevronRight,
   LayoutDashboard,
-  SendHorizontal
+  SendHorizontal,
+  UserRound
 } from 'lucide-react';
 import Link from 'next/link';
 import { cn } from '@/lib/utils';
@@ -26,7 +27,8 @@ const navItems = [
     href: '/leave-entitlements',
     icon: CalendarCheck2
   },
-  { title: 'My Requests', href: '/leave-requests', icon: SendHorizontal }
+  { title: 'My Requests', href: '/leave-requests', icon: SendHorizontal },
+  { title: 'Profile', href: '/profile', icon: UserRound }
 ];
 
 export const Aside: React.FC = () => {
