@@ -1,10 +1,20 @@
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import { Toaster } from '@/components/ui/sonner';
+import { RegisterSW } from '@/components/pwa';
 import './globals.css';
+
+export const viewport: Viewport = {
+  themeColor: '#ffffff'
+};
 
 export const metadata: Metadata = {
   title: 'Fieldglass App',
   description: 'A website to track your vacation',
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: 'default',
+    title: 'Fieldglass'
+  },
   icons: {
     icon: [
       { url: '/favicon-16x16.png', sizes: '16x16', type: 'image/png' },
@@ -26,6 +36,7 @@ export default function RootLayout({
       <body className={`antialiased`}>
         {children}
         <Toaster position="top-right" />
+        <RegisterSW />
       </body>
     </html>
   );
