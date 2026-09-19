@@ -19,6 +19,7 @@ import { schemas } from './schemas';
 import { onSubmitAction, SubmitResult } from './action';
 import { useRouter } from 'next/navigation';
 import NextLink from 'next/link';
+import Image from 'next/image';
 
 export function LoginForm({
   className,
@@ -75,6 +76,23 @@ export function LoginForm({
         className={cn('flex', 'flex-col', 'gap-6', className)}
         {...props}
       >
+        <div className="flex flex-col items-center gap-3 text-center">
+          <Image
+            src="/logo.svg"
+            alt="Fieldglass App"
+            width={48}
+            height={48}
+            priority
+            unoptimized
+            className="rounded-xl shadow-md"
+          />
+          <h1 className="text-2xl font-bold tracking-tight text-slate-900">
+            Welcome back
+          </h1>
+          <p className="text-sm text-muted-foreground">
+            Enter your credentials to access your account
+          </p>
+        </div>
         <div className="grid gap-3">
           <FormField
             control={form.control}

@@ -3,7 +3,8 @@ import { User } from '@supabase/supabase-js';
 import * as React from 'react';
 import { UserNav } from './user-nav';
 import Link from 'next/link';
-import { AlertCircle, CalendarDays, CheckCircle2 } from 'lucide-react';
+import Image from 'next/image';
+import { AlertCircle, CheckCircle2 } from 'lucide-react';
 import { MobileAside } from './mobile-aside';
 
 interface NavbarProps extends React.ComponentProps<'nav'> {
@@ -32,9 +33,15 @@ export const Navbar: React.FC<NavbarProps> = props => {
           href="/dashboard"
           className="flex items-center gap-2 group transition-all"
         >
-          <div className="hidden sm:flex h-9 w-9 items-center justify-center rounded-xl bg-primary text-primary-foreground shadow-lg group-hover:rotate-6 transition-transform">
-            <CalendarDays className="h-5 w-5" />
-          </div>
+          <Image
+            src="/logo.svg"
+            alt="Fieldglass App"
+            width={36}
+            height={36}
+            priority
+            unoptimized
+            className="hidden sm:block h-9 w-9 rounded-xl shadow-lg transition-transform group-hover:rotate-6"
+          />
           <span className="hidden sm:inline-block font-bold text-xl tracking-tight uppercase">
             {title || 'Fieldglass App'}
           </span>
