@@ -31,7 +31,11 @@ const navItems = [
   { title: 'Profile', href: '/profile', icon: UserRound }
 ];
 
-export const Aside: React.FC = () => {
+interface AsideProps {
+  onNavigate?: () => void;
+}
+
+export const Aside: React.FC<AsideProps> = ({ onNavigate }) => {
   const pathname = usePathname();
   return (
     <div className="flex flex-col h-full w-full bg-white/80 backdrop-blur-md">
@@ -51,6 +55,7 @@ export const Aside: React.FC = () => {
                     render={
                       <Link
                         href={item.href}
+                        onClick={onNavigate}
                         className="w-full flex items-center"
                       />
                     }
@@ -94,6 +99,7 @@ export const Aside: React.FC = () => {
       </SidebarGroup>
       <Link
         href="/premium-upgrade"
+        onClick={onNavigate}
         className="mt-auto p-4 mx-4 mb-6 rounded-2xl bg-gradient-to-br from-[#7C3AED]/5 to-[#F4EEFC] border border-[#F4EEFC]"
       >
         <p className="text-[12px] font-semibold text-[#7C3AED]">Premium Plan</p>
