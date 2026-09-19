@@ -110,8 +110,8 @@ export default async function Page() {
         </Card>
       </div>
 
-      <div className="grid gap-6 md:grid-cols-7">
-        <div className="col-span-4 space-y-6">
+      <div className="grid grid-cols-1 gap-6 md:grid-cols-7">
+        <div className="md:col-span-4 space-y-6">
           <Card className="border-none shadow-sm">
             <CardHeader>
               <CardTitle className="text-lg">Leave Breakdown</CardTitle>
@@ -191,7 +191,7 @@ export default async function Page() {
         </div>
 
         {/* 右侧：快捷操作 */}
-        <div className="col-span-3 space-y-6">
+        <div className="md:col-span-3 space-y-6">
           <Card className="border-none shadow-sm bg-gradient-to-br from-white to-slate-50/50">
             <CardHeader>
               <CardTitle>Quick Actions</CardTitle>
