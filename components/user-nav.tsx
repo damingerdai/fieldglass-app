@@ -45,7 +45,10 @@ export function UserNav({ user }: UserNavProps) {
           <button className="relative group h-9 w-9 rounded-xl overflow-hidden focus:outline-none ring-offset-background transition-all hover:ring-2 hover:ring-primary/20 hover:ring-offset-2 active:scale-95 shadow-sm border border-slate-200" />
         }
       >
-        <UserAvatar email={user?.email ?? ''} />
+        <UserAvatar
+          email={user?.email ?? ''}
+          avatarUrl={user?.user_metadata?.avatar_url as string | undefined}
+        />
         <div className="absolute inset-0 bg-black/5 opacity-0 group-hover:opacity-100 transition-opacity" />
       </DropdownMenuTrigger>
 

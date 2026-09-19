@@ -71,6 +71,19 @@ Drops the old vacations table:
 - **Removes**: `vacations` table and all its data
 - **Purpose**: Clean migration to new leave_entitlements system
 
+### 20260220182900_handle_auto_approve.sql
+
+Handles auto-approve logic for leave requests.
+
+### 20260919120000_avatars_bucket_storage_policies.sql
+
+Adds RLS policies on `storage.objects` for the `avatars` bucket:
+
+- **INSERT**: Authenticated users can upload into their own folder (`avatars/{user_id}/...`)
+- **SELECT**: Users can read their own avatars
+- **UPDATE**: Users can replace their own avatars
+- **DELETE**: Users can delete their own avatars
+
 ## Usage
 
 Apply migrations in order using your preferred database migration tool (e.g., Supabase CLI, Flyway, or manual execution):

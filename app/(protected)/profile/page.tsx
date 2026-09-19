@@ -22,7 +22,7 @@ import {
 } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
 import { Separator } from '@/components/ui/separator';
-import { UserAvatar } from '@/components/user-avatar';
+import { AvatarUpload } from '@/components/avatar-upload';
 import { getUserBalances } from '@/components/user-balances/actions';
 import { ProfileForm } from '@/components/profile-form';
 import { createClient } from '@/utils/supabase/server';
@@ -113,7 +113,12 @@ export default async function ProfilePage() {
             <div className="h-24 bg-linear-to-r from-[#7C3AED] to-[#a78bfa]" />
             <CardContent className="relative -mt-12 pb-6">
               <div className="h-24 w-24 rounded-2xl bg-white p-1 shadow-md">
-                <UserAvatar email={user.email ?? ''} />
+                <AvatarUpload
+                  email={user.email ?? ''}
+                  avatarUrl={
+                    user.user_metadata?.avatar_url as string | undefined
+                  }
+                />
               </div>
               <div className="mt-4 space-y-1">
                 <h2 className="text-xl font-bold text-slate-900">{fullName}</h2>
@@ -156,6 +161,10 @@ export default async function ProfilePage() {
                   MFA {isMfaEnabled ? 'Enabled' : 'Disabled'}
                 </Badge>
               </div>
+              <p className="text-[11px] text-slate-400 mt-3">
+                Click the avatar to upload a new one (JPG, PNG, WEBP or GIF, max
+                1MB).
+              </p>
             </CardContent>
           </Card>
 

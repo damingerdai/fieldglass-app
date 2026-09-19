@@ -6,6 +6,7 @@ import { cn } from '@/lib/utils';
 
 interface UserAvatarProps {
   email: string;
+  avatarUrl?: string;
   className?: string;
 }
 
@@ -24,8 +25,13 @@ const getAvatarColor = (email: string) => {
   return colors[charCodeSum % colors.length];
 };
 
-export const UserAvatar: React.FC<UserAvatarProps> = ({ email, className }) => {
-  const url: string | undefined = email ? gravatar(email) : undefined;
+export const UserAvatar: React.FC<UserAvatarProps> = ({
+  email,
+  avatarUrl,
+  className
+}) => {
+  const url: string | undefined =
+    avatarUrl || (email ? gravatar(email) : undefined);
   const initial = email ? email.charAt(0).toUpperCase() : null;
   const colorClass = getAvatarColor(email);
 
