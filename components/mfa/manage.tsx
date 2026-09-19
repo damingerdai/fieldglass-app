@@ -74,7 +74,7 @@ export function MFAManagement() {
   };
 
   return (
-    <Card>
+    <Card className="border-none shadow-sm bg-white">
       <CardHeader>
         <CardTitle className="flex items-center gap-2">
           <ShieldCheck className="size-5 text-primary" />

@@ -1,8 +1,9 @@
 import { MFAManagement } from '@/components/mfa';
+import { PasswordCard } from '@/components/change-password-form';
 
 export default function Page() {
   return (
-    <div className="mx-auto max-w-3xl space-y-8 p-4 md:p-8">
+    <div className="mx-auto max-w-5xl space-y-8 p-4 md:p-8">
       <div className="flex flex-col gap-2">
         <h1 className="text-3xl font-bold tracking-tight text-slate-900">
           Settings
@@ -12,7 +13,10 @@ export default function Page() {
         </p>
       </div>
 
-      <MFAManagement />
+      <div className="grid items-start gap-6 lg:grid-cols-2">
+        <MFAManagement />
+        <PasswordCard />
+      </div>
     </div>
   );
 }
