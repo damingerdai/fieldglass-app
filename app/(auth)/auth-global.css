@@ -1,0 +1,123 @@
+/* Background artwork and motion adapted from https://home.mosi.cn/hero. */
+.auth-layout {
+  background-color: #fcfcfb;
+}
+
+.dark .auth-layout {
+  background-color: var(--background);
+}
+
+.auth-ball-position {
+  position: absolute;
+}
+
+.auth-ball-position-one {
+  left: clamp(-150px, -15vw, -200px);
+  bottom: clamp(-200px, -25vw, -327px);
+  width: clamp(400px, 65vw, 948.27px);
+  height: clamp(356px, 58vw, 845.01px);
+}
+
+.auth-ball-position-two {
+  right: clamp(-200px, -20vw, -318.47px);
+  top: clamp(-250px, -30vw, -411.63px);
+  width: clamp(500px, 82vw, 1185.34px);
+  height: clamp(445px, 73vw, 1056.26px);
+}
+
+.auth-ball {
+  width: 100%;
+  height: 100%;
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  transform-origin: center;
+  animation-duration: 16s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  animation-fill-mode: both;
+  will-change: transform;
+}
+
+.auth-ball-one {
+  background-image: url('/images/auth/hero-ball-1.svg');
+  transform: rotate(165deg);
+  animation-name: auth-ball-one-motion;
+}
+
+.auth-ball-two {
+  background-image: url('/images/auth/hero-ball-2.svg');
+  transform: rotate(277deg);
+  animation-name: auth-ball-two-motion;
+}
+
+@keyframes auth-ball-one-motion {
+  0% {
+    transform: translate(0) rotate(165deg);
+  }
+  15% {
+    transform: translate(220px, -240px) rotate(200deg);
+  }
+  28% {
+    transform: translate(420px, -480px) rotate(222deg);
+  }
+  34% {
+    transform: translate(520px, -600px) rotate(235deg);
+  }
+  38% {
+    transform: translate(600px, -660px) rotate(245deg);
+  }
+  48% {
+    transform: translate(700px, -600px) rotate(260deg);
+  }
+  58% {
+    transform: translate(780px, -360px) rotate(278deg);
+  }
+  68% {
+    transform: translate(640px, -160px) rotate(250deg);
+  }
+  82% {
+    transform: translate(360px, -60px) rotate(225deg);
+  }
+  to {
+    transform: translate(0) rotate(165deg);
+  }
+}
+@keyframes auth-ball-two-motion {
+  0% {
+    transform: translate(0) rotate(277deg);
+  }
+  15% {
+    transform: translate(-220px, 240px) rotate(245deg);
+  }
+  28% {
+    transform: translate(-420px, 480px) rotate(223deg);
+  }
+  34% {
+    transform: translate(-520px, 600px) rotate(210deg);
+  }
+  38% {
+    transform: translate(-600px, 660px) rotate(200deg);
+  }
+  48% {
+    transform: translate(-700px, 600px) rotate(190deg);
+  }
+  58% {
+    transform: translate(-780px, 360px) rotate(172deg);
+  }
+  68% {
+    transform: translate(-640px, 160px) rotate(200deg);
+  }
+  82% {
+    transform: translate(-360px, 60px) rotate(230deg);
+  }
+  to {
+    transform: translate(0) rotate(277deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .auth-ball {
+    animation: none;
+    will-change: auto;
+  }
+}
