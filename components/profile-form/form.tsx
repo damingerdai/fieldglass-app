@@ -27,6 +27,8 @@ export function ProfileForm({ defaultFullName }: ProfileFormProps) {
   const router = useRouter();
   const form = useForm({
     resolver: zodResolver(profileSchema),
+    mode: 'onSubmit',
+    reValidateMode: 'onChange',
     defaultValues: {
       fullName: defaultFullName
     }
@@ -67,7 +69,17 @@ export function ProfileForm({ defaultFullName }: ProfileFormProps) {
             <FormItem>
               <FormLabel>Full Name</FormLabel>
               <FormControl>
-                <Input placeholder="Enter your full name" {...field} />
+                <Input
+                  placeholder="Enter your full name"
+                  {...field}
+                  onChange={e => {
+                    field.onChange(e);
+
+                    if (form.formState.errors.fullName) {
+                      form.clearErrors('fullName');
+                    }
+                  }}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
