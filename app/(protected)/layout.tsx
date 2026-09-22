@@ -1,7 +1,7 @@
 import { Navbar } from '@/components/navbar';
 import { createClient } from '@/utils/supabase/server';
 import { redirect } from 'next/navigation';
-import { ReactNode } from 'react';
+import type { ReactNode } from 'react';
 import { Aside } from '@/components/aside';
 
 export default async function Layout({ children }: { children: ReactNode }) {

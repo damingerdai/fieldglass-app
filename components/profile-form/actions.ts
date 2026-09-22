@@ -10,7 +10,7 @@ export type ProfileSubmitResult =
   | { errors?: never; message: string };
 
 export async function updateUserProfile(
-  prevState: ProfileSubmitResult,
+  _prevState: ProfileSubmitResult,
   formData: FormData
 ): Promise<ProfileSubmitResult> {
   const parse = profileSchema.safeParse({

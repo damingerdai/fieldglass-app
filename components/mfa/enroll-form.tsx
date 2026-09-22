@@ -1,5 +1,7 @@
 'use client';
 
+import Image from 'next/image';
+
 import { useEffect, useState } from 'react';
 import { Loader2Icon } from 'lucide-react';
 import { toast } from 'sonner';
@@ -101,7 +103,10 @@ export function EnrollMFA({ onEnrolled, onCancelled }: EnrollMFAProps) {
           </div>
         ) : qr ? (
           // The QR code is an SVG data URL returned by Supabase Auth.
-          <img
+          <Image
+            width={192}
+            height={192}
+            unoptimized
             src={qr}
             alt="QR code to scan with your authenticator app"
             className="h-48 w-48 rounded-lg border"

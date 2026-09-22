@@ -1,6 +1,6 @@
 'use client';
 
-import { useTransition, useState } from 'react';
+import { useTransition, useState, useId } from 'react';
 import { Pencil, Loader2 } from 'lucide-react';
 import { toast } from 'sonner';
 import { Button } from '@/components/ui/button';
@@ -28,6 +28,7 @@ export function EditAmountSheet({
   currentAmount,
   leaveType
 }: EditAmountSheetProps) {
+  const amountId = useId();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [amount, setAmount] = useState(currentAmount);
   const [isPending, startTransition] = useTransition();
@@ -65,8 +66,11 @@ export function EditAmountSheet({
 
         <div className="py-6 px-4 space-y-4">
           <div className="space-y-2">
-            <label className="text-sm font-medium">Entitlement Days</label>
+            <label htmlFor={amountId} className="text-sm font-medium">
+              Entitlement Days
+            </label>
             <Input
+              id={amountId}
               type="number"
               step="0.5"
               value={amount}

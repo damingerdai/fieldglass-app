@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useTransition } from 'react';
+import { useState, useTransition } from 'react';
 import { toast } from 'sonner';
 import { subscribeEmail } from './action';
 
@@ -115,6 +115,7 @@ export default function PremiumUpgradePage() {
                   fill="none"
                   viewBox="0 0 24 24"
                 >
+                  <title>Submitting</title>
                   <circle
                     className="opacity-25"
                     cx="12"

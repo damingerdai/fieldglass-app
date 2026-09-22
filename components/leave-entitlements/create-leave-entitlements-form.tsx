@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import {
   createLeaveEntitlementsSchema,
-  CreateLeaveEntitlementsSchema
+  type CreateLeaveEntitlementsSchema
 } from './schema';
 import {
   Form,
@@ -118,17 +118,12 @@ export function CreateLeaveEntitlementsForm({
                     <FormControl>
                       <RadioGroupItem value={item.id} className="mt-1" />
                     </FormControl>
-                    <div
-                      className="space-y-1 leading-none cursor-pointer w-full"
-                      onClick={() => field.onChange(item.id)}
-                    >
-                      <FormLabel className="font-medium">
-                        {item.label}
-                      </FormLabel>
-                      <p className="text-sm text-muted-foreground">
+                    <FormLabel className="flex flex-col items-start gap-1 leading-none cursor-pointer w-full">
+                      <span>{item.label}</span>
+                      <span className="text-sm text-muted-foreground font-normal">
                         {item.desc}
-                      </p>
-                    </div>
+                      </span>
+                    </FormLabel>
                   </FormItem>
                 ))}
               </RadioGroup>

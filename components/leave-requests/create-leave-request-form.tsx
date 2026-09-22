@@ -3,7 +3,10 @@ import * as React from 'react';
 import { useEffect, useMemo } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { CreateLeaveRequestSchema, createLeaveRequestSchema } from './schema';
+import {
+  type CreateLeaveRequestSchema,
+  createLeaveRequestSchema
+} from './schema';
 import { useRouter } from 'next/navigation';
 import {
   Form,
@@ -75,7 +78,7 @@ export function CreateLeaveRequestForm({
 
   useEffect(() => {
     const numDays = Number(days);
-    if (startDate && !isNaN(numDays) && numDays > 0) {
+    if (startDate && !Number.isNaN(numDays) && numDays > 0) {
       const endDate = new Date(startDate);
       endDate.setDate(endDate.getDate() + Math.ceil(numDays) - 1);
       const currentEndDate = form.getValues('end_date');

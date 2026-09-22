@@ -10,7 +10,7 @@ export type ChangePasswordResult =
   | { errors?: never; message: string };
 
 export async function changePassword(
-  prevState: ChangePasswordResult,
+  _prevState: ChangePasswordResult,
   formData: FormData
 ): Promise<ChangePasswordResult> {
   const parse = changePasswordSchema.safeParse({

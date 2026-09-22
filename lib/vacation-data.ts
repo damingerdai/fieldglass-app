@@ -1,5 +1,5 @@
-import { Vacations } from '@/types/vacation';
-import { LeaveBalances } from '@/types/leave-balance';
+import type { Vacations } from '@/types/vacation';
+import type { LeaveBalances } from '@/types/leave-balance';
 import { createClient } from '@/utils/supabase/server';
 
 export async function fetchUserVacations(): Promise<Vacations | null> {

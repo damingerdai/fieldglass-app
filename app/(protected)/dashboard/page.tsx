@@ -3,7 +3,6 @@ import {
   History,
   Plus,
   TrendingUp,
-  ArrowRight,
   PieChart,
   AlertCircle
 } from 'lucide-react';

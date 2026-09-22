@@ -1,9 +1,9 @@
 'use server';
 
 import { createClient } from '@/utils/supabase/server';
-import { CreateLeaveEntitlementsSchema } from './schema';
+import type { CreateLeaveEntitlementsSchema } from './schema';
 import { revalidatePath } from 'next/cache';
-import { LeaveEntitlements } from '@/types/leave-entitlement';
+import type { LeaveEntitlements } from '@/types/leave-entitlement';
 
 export async function createLeaveEntitlements(
   data: CreateLeaveEntitlementsSchema

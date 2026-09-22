@@ -19,6 +19,12 @@ import {
 import { changePasswordSchema } from './schemas';
 import { type ChangePasswordResult, changePassword } from './actions';
 
+const isValidField = (
+  field: string
+): field is 'currentPassword' | 'password' | 'confirmPassword' => {
+  return ['currentPassword', 'password', 'confirmPassword'].includes(field);
+};
+
 export function ChangePasswordForm() {
   const router = useRouter();
   const form = useForm({
@@ -38,12 +44,6 @@ export function ChangePasswordForm() {
     changePassword,
     initialState
   );
-
-  const isValidField = (
-    field: string
-  ): field is 'currentPassword' | 'password' | 'confirmPassword' => {
-    return ['currentPassword', 'password', 'confirmPassword'].includes(field);
-  };
 
   useEffect(() => {
     if (!state.errors) {

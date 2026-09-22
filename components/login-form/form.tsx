@@ -16,10 +16,14 @@ import { toast } from 'sonner';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { schemas } from './schemas';
-import { onSubmitAction, SubmitResult } from './action';
+import { onSubmitAction, type SubmitResult } from './action';
 import { useRouter } from 'next/navigation';
 import NextLink from 'next/link';
 import Image from 'next/image';
+
+const isValidField = (field: string): field is 'email' | 'password' => {
+  return ['email', 'password'].includes(field);
+};
 
 export function LoginForm({
   className,
@@ -41,9 +45,6 @@ export function LoginForm({
     onSubmitAction,
     initialState
   );
-  const isValidField = (field: string): field is 'email' | 'password' => {
-    return ['email', 'password'].includes(field);
-  };
 
   useEffect(() => {
     if (!state.errors) {

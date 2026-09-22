@@ -6,7 +6,7 @@ import { useForm } from 'react-hook-form';
 import { useActionState } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { schemas } from './schemas';
-import { onSubmitStudent, SubmitResult } from './actions';
+import { onSubmitStudent, type SubmitResult } from './actions';
 import { useEffect } from 'react';
 import {
   Form,
@@ -19,6 +19,12 @@ import {
 import { Loader2Icon } from 'lucide-react';
 import { toast } from 'sonner';
 import { useRouter } from 'next/navigation';
+
+const isValidField = (
+  field: string
+): field is 'email' | 'password' | 'confirmPassword' => {
+  return ['email', 'password', 'confirmPassword'].includes(field);
+};
 
 export function RegisterForm({
   className,
@@ -41,11 +47,6 @@ export function RegisterForm({
     onSubmitStudent,
     initialState
   );
-  const isValidField = (
-    field: string
-  ): field is 'email' | 'password' | 'confirmPassword' => {
-    return ['email', 'password', 'confirmPassword'].includes(field);
-  };
 
   useEffect(() => {
     if (!state.errors) {

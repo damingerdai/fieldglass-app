@@ -1,0 +1,4 @@
+{
+  "pattern": "^(main|master|dev|stage)$|^(feature|feat|fix)/.+",
+  "errorMsg": "Invalid branch name! Example: feature/login-page or fix/issue-123"
+}

@@ -1,6 +1,6 @@
 'use client';
 
-import { User } from '@supabase/supabase-js';
+import type { User } from '@supabase/supabase-js';
 import {
   LogIn,
   LogOut,
@@ -42,7 +42,10 @@ export function UserNav({ user }: UserNavProps) {
     <DropdownMenu>
       <DropdownMenuTrigger
         render={
-          <button className="relative group h-9 w-9 rounded-xl overflow-hidden focus:outline-none ring-offset-background transition-all hover:ring-2 hover:ring-primary/20 hover:ring-offset-2 active:scale-95 shadow-sm border border-slate-200" />
+          <button
+            type="button"
+            className="relative group h-9 w-9 rounded-xl overflow-hidden focus:outline-none ring-offset-background transition-all hover:ring-2 hover:ring-primary/20 hover:ring-offset-2 active:scale-95 shadow-sm border border-slate-200"
+          />
         }
       >
         <UserAvatar

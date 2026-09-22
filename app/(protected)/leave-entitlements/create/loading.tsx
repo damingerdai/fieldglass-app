@@ -6,9 +6,9 @@ export default function Loading() {
       <div className="space-y-3">
         <Skeleton className="h-4 w-20" />
         <div className="flex flex-col space-y-2">
-          {[...Array(3)].map((_, i) => (
+          {['annual', 'sick', 'unpaid'].map(id => (
             <div
-              key={i}
+              key={id}
               className="flex items-start space-x-3 rounded-md border p-4"
             >
               <Skeleton className="h-4 w-4 rounded-full mt-1" />

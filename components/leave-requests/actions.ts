@@ -1,7 +1,7 @@
 'use server';
 import { createClient } from '@/utils/supabase/server';
 import { revalidatePath } from 'next/cache';
-import { CreateLeaveRequestSchema } from './schema';
+import type { CreateLeaveRequestSchema } from './schema';
 
 export async function getLeaveRequests() {
   const supabase = await createClient();

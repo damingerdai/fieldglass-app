@@ -1,6 +1,6 @@
 import { cn } from '@/lib/utils';
-import { User } from '@supabase/supabase-js';
-import * as React from 'react';
+import type { User } from '@supabase/supabase-js';
+import type * as React from 'react';
 import { UserNav } from './user-nav';
 import Link from 'next/link';
 import Image from 'next/image';

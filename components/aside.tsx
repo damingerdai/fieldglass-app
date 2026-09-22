@@ -1,6 +1,6 @@
 'use client';
 
-import * as React from 'react';
+import type * as React from 'react';
 import {
   SidebarGroup,
   SidebarGroupContent,
@@ -47,7 +47,7 @@ export const Aside: React.FC<AsideProps> = ({ onNavigate }) => {
           <SidebarMenu className="gap-1">
             {navItems.map(item => {
               const isActive =
-                pathname === item.href || pathname.startsWith(item.href + '/');
+                pathname === item.href || pathname.startsWith(`${item.href}/`);
 
               return (
                 <SidebarMenuItem key={item.href}>

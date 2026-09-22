@@ -21,13 +21,12 @@ export async function GET(request: Request) {
   }
 
   const supabase = createClient(supabaseUrl, supabaseKey);
-  const operations: any[] = [];
+  const operations: { method: string; success: boolean; error?: string }[] = [];
   let successCount = 0;
 
   try {
     // --- 方法1: Storage API ---
-    const { data: storageData, error: storageError } =
-      await supabase.storage.listBuckets();
+    const { error: storageError } = await supabase.storage.listBuckets();
     if (storageError) {
       operations.push({
         method: 'Storage API check',
@@ -82,7 +81,18 @@ export async function GET(request: Request) {
       totalOperations: operations.length,
       details: operations
     });
-  } catch (error: any) {
-    return NextResponse.json({ error: error.message }, { status: 500 });
+  } catch (error) {
+    return NextResponse.json(
+      {
+        error:
+          typeof error === 'object' &&
+          error !== null &&
+          'message' in error &&
+          typeof error.message === 'string'
+            ? error.message
+            : 'Unexpected cron error'
+      },
+      { status: 500 }
+    );
   }
 }

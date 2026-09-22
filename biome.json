@@ -14,7 +14,8 @@
       "!!**/.claude",
       "!!**/.codex",
       "!!**/.migration",
-      "!!**/public"
+      "!!**/public",
+      "!!**/components/ui/"
     ]
   },
   "formatter": {

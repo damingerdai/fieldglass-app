@@ -1,4 +1,4 @@
-import * as React from 'react';
+import type * as React from 'react';
 import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
 import gravatar from '@/lib/gravatar';
 import { User as UserIcon } from 'lucide-react';

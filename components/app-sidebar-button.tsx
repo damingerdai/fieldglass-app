@@ -1,8 +1,8 @@
-import * as React from 'react';
+import type * as React from 'react';
 import { cn } from '@/lib/utils';
 import { mergeProps } from '@base-ui/react/merge-props';
 import { useRender } from '@base-ui/react/use-render';
-import { cva, VariantProps } from 'class-variance-authority';
+import { cva, type VariantProps } from 'class-variance-authority';
 import { Tooltip, TooltipTrigger, TooltipContent } from './ui/tooltip';
 
 const sidebarMenuButtonVariants = cva(

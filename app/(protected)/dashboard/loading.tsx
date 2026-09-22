@@ -10,8 +10,8 @@ export default function Loading() {
       </div>
 
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-        {[...Array(3)].map((_, i) => (
-          <Card key={i}>
+        {['annual', 'sick', 'unpaid'].map(id => (
+          <Card key={id}>
             <CardHeader className="flex flex-row items-center justify-between pb-2">
               <Skeleton className="h-4 w-24" />
               <Skeleton className="h-4 w-4 rounded-full" />
@@ -35,8 +35,8 @@ export default function Loading() {
           </CardHeader>
           <CardContent>
             <div className="space-y-6">
-              {[...Array(5)].map((_, i) => (
-                <div key={i} className="flex items-center">
+              {['first', 'second', 'third', 'fourth', 'fifth'].map(id => (
+                <div key={id} className="flex items-center">
                   <Skeleton className="mr-4 h-9 w-9 rounded-full" />
                   <div className="flex-1 space-y-2">
                     <Skeleton className="h-4 w-[40%]" />

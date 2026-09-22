@@ -10,7 +10,7 @@ export type SubmitResult =
   | { errors?: never; message: string };
 
 export async function onSubmitStudent(
-  prevState: SubmitResult,
+  _prevState: SubmitResult,
   formData: FormData
 ): Promise<SubmitResult> {
   const parse = schemas.safeParse({
@@ -47,7 +47,7 @@ export async function onSubmitStudent(
   }
 
   const supabase = await createClient();
-  const { data, error } = await supabase.auth.signUp({
+  const { error } = await supabase.auth.signUp({
     email: parse.data.email,
     password: parse.data.password
   });

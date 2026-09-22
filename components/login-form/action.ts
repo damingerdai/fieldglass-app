@@ -13,7 +13,7 @@ export type SubmitResult =
   | { errors?: never; message: string };
 
 export async function onSubmitAction(
-  preState: SubmitResult,
+  _preState: SubmitResult,
   formData: FormData
 ): Promise<SubmitResult> {
   const data = {

@@ -1,7 +1,7 @@
 'use client';
 
 import { useCallback, useEffect, useState } from 'react';
-import { type Factor } from '@supabase/supabase-js';
+import type { Factor } from '@supabase/supabase-js';
 import { Loader2Icon, ShieldCheck, ShieldPlus } from 'lucide-react';
 import { toast } from 'sonner';
 

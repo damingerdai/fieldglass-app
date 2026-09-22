@@ -1,8 +1,7 @@
 import { useCallback, useEffect, useRef } from 'react';
 
-export function useCallbackRef<T extends (...args: any[]) => any>(
-  callback: T | undefined,
-  deps: React.DependencyList = []
+export function useCallbackRef<Args extends unknown[], Result>(
+  callback: ((...args: Args) => Result) | undefined
 ) {
   const callbackRef = useRef(callback);
 
@@ -10,5 +9,5 @@ export function useCallbackRef<T extends (...args: any[]) => any>(
     callbackRef.current = callback;
   });
 
-  return useCallback(((...args) => callbackRef.current?.(...args)) as T, deps);
+  return useCallback((...args: Args) => callbackRef.current?.(...args), []);
 }

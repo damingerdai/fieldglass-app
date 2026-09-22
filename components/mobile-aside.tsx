@@ -17,7 +17,7 @@ export function MobileAside() {
 
   return (
     <Sheet open={open} onOpenChange={setOpen}>
-      <SheetTrigger render={<button className="p-2" />}>
+      <SheetTrigger render={<button type="button" className="p-2" />}>
         <Menu className="h-5 w-5" />
       </SheetTrigger>
 

@@ -1,4 +1,4 @@
-import { LeaveTypeKey } from './leave-type';
+import type { LeaveTypeKey } from './leave-type';
 
 export type LeaveRequestStatus =
   | 'pending'
