@@ -34,3 +34,32 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+## Code quality
+
+[Biome](https://biomejs.dev/) replaces ESLint and Prettier. Its pinned version and
+configuration live in `package.json` and `biome.json`.
+
+- `bun run lint` / `bun run lint:fix`: lint or apply safe lint fixes.
+- `bun run format` / `bun run format:fix`: check or write formatting.
+- `bun run check` / `bun run check:fix`: run both checks or apply safe fixes.
+- `bun run ci`: run read-only Biome checks in CI.
+- `bun run type-check`: run TypeScript separately.
+
+Formatting retains the previous two-space indentation, single quotes, semicolons,
+LF endings, omitted arrow parentheses where possible, and no trailing commas.
+Import organization is disabled to preserve the existing import order.
+Tailwind v4 directives are supported.
+
+Biome uses the recommended rules plus the React and Next.js domains. It is not
+an exact replacement for every rule in `eslint-config-next`. Existing violations
+of additional Biome rules are retained as warnings through file-specific
+`overrides`; remove each override as the corresponding issue is addressed.
+Other files retain the default rule severity.
+
+Git-ignored outputs, static assets in `public/`, Helm charts, and local agent and
+migration tooling are excluded. Markdown, YAML, and SQL are not formatted by this
+setup. Use the Biome editor extension for format-on-save support.
+
+No CI workflow is currently checked in. A CI job can run `bun install --frozen-lockfile`,
+`bun run type-check`, and `bun run ci`.

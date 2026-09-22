@@ -1,0 +1,202 @@
+{
+  "$schema": "https://biomejs.dev/schemas/2.5.14/schema.json",
+  "vcs": {
+    "enabled": true,
+    "clientKind": "git",
+    "useIgnoreFile": true
+  },
+  "files": {
+    "ignoreUnknown": true,
+    "includes": [
+      "**",
+      "!!**/charts",
+      "!!**/.agents",
+      "!!**/.claude",
+      "!!**/.codex",
+      "!!**/.migration",
+      "!!**/public"
+    ]
+  },
+  "formatter": {
+    "enabled": true,
+    "formatWithErrors": false,
+    "indentStyle": "space",
+    "indentWidth": 2,
+    "lineEnding": "lf",
+    "lineWidth": 80,
+    "attributePosition": "auto",
+    "bracketSameLine": false,
+    "bracketSpacing": true,
+    "expand": "auto",
+    "useEditorconfig": true
+  },
+  "linter": {
+    "enabled": true,
+    "rules": {
+      "preset": "recommended"
+    },
+    "domains": {
+      "next": "recommended",
+      "react": "recommended"
+    }
+  },
+  "javascript": {
+    "formatter": {
+      "jsxQuoteStyle": "double",
+      "quoteProperties": "asNeeded",
+      "trailingCommas": "none",
+      "semicolons": "always",
+      "arrowParentheses": "asNeeded",
+      "bracketSameLine": false,
+      "quoteStyle": "single",
+      "attributePosition": "auto",
+      "bracketSpacing": true
+    }
+  },
+  "html": {
+    "formatter": {
+      "indentScriptAndStyle": false,
+      "selfCloseVoidElements": "always"
+    }
+  },
+  "assist": {
+    "enabled": false,
+    "actions": {
+      "source": {
+        "organizeImports": "on"
+      }
+    }
+  },
+  "css": {
+    "parser": {
+      "tailwindDirectives": true
+    }
+  },
+  "json": {
+    "formatter": {
+      "trailingCommas": "none"
+    }
+  },
+  "overrides": [
+    {
+      "includes": [
+        "components/leave-entitlements/edit-amount-sheet.tsx",
+        "components/ui/label.tsx"
+      ],
+      "linter": {
+        "rules": {
+          "a11y": {
+            "noLabelWithoutControl": "warn"
+          }
+        }
+      }
+    },
+    {
+      "includes": [
+        "components/leave-entitlements/create-leave-entitlements-form.tsx"
+      ],
+      "linter": {
+        "rules": {
+          "a11y": {
+            "noStaticElementInteractions": "warn"
+          }
+        }
+      }
+    },
+    {
+      "includes": ["app/(protected)/premium-upgrade/page.tsx"],
+      "linter": {
+        "rules": {
+          "a11y": {
+            "noSvgWithoutTitle": "warn"
+          }
+        }
+      }
+    },
+    {
+      "includes": ["components/mobile-aside.tsx", "components/user-nav.tsx"],
+      "linter": {
+        "rules": {
+          "a11y": {
+            "useButtonType": "warn"
+          }
+        }
+      }
+    },
+    {
+      "includes": ["components/ui/breadcrumb.tsx"],
+      "linter": {
+        "rules": {
+          "a11y": {
+            "useFocusableInteractive": "warn"
+          }
+        }
+      }
+    },
+    {
+      "includes": [
+        "components/leave-entitlements/create-leave-entitlements-form.tsx"
+      ],
+      "linter": {
+        "rules": {
+          "a11y": {
+            "useKeyWithClickEvents": "warn"
+          }
+        }
+      }
+    },
+    {
+      "includes": [
+        "components/ui/breadcrumb.tsx",
+        "components/ui/input-otp.tsx"
+      ],
+      "linter": {
+        "rules": {
+          "a11y": {
+            "useSemanticElements": "warn"
+          }
+        }
+      }
+    },
+    {
+      "includes": [
+        "components/change-password-form/form.tsx",
+        "components/login-form/form.tsx",
+        "components/register-form/form.tsx",
+        "components/ui/sidebar.tsx",
+        "hooks/use-callback-ref.ts"
+      ],
+      "linter": {
+        "rules": {
+          "correctness": {
+            "useExhaustiveDependencies": "warn"
+          }
+        }
+      }
+    },
+    {
+      "includes": [
+        "app/(protected)/dashboard/loading.tsx",
+        "app/(protected)/leave-entitlements/create/loading.tsx",
+        "app/(protected)/leave-entitlements/loading.tsx"
+      ],
+      "linter": {
+        "rules": {
+          "suspicious": {
+            "noArrayIndexKey": "warn"
+          }
+        }
+      }
+    },
+    {
+      "includes": ["utils/supabase/middleware.ts", "utils/supabase/server.ts"],
+      "linter": {
+        "rules": {
+          "suspicious": {
+            "useIterableCallbackReturn": "warn"
+          }
+        }
+      }
+    }
+  ]
+}

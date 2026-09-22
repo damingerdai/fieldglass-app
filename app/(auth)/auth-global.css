@@ -39,13 +39,13 @@
 }
 
 .auth-ball-one {
-  background-image: url('/images/auth/hero-ball-1.svg');
+  background-image: url("/images/auth/hero-ball-1.svg");
   transform: rotate(165deg);
   animation-name: auth-ball-one-motion;
 }
 
 .auth-ball-two {
-  background-image: url('/images/auth/hero-ball-2.svg');
+  background-image: url("/images/auth/hero-ball-2.svg");
   transform: rotate(277deg);
   animation-name: auth-ball-two-motion;
 }

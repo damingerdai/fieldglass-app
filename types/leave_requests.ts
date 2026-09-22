@@ -1,7 +1,10 @@
 import { LeaveTypeKey } from './leave-type';
 
 export type LeaveRequestStatus =
-  'pending' | 'approved' | 'rejected' | 'cancelled';
+  | 'pending'
+  | 'approved'
+  | 'rejected'
+  | 'cancelled';
 
 export interface LeaveRequest {
   id: string;

@@ -34,8 +34,7 @@ const appLoaderVariants = cva('animate-spin text-primary', {
 });
 
 interface AppSpinnerProps
-  extends
-    React.HTMLAttributes<HTMLElement>,
+  extends React.HTMLAttributes<HTMLElement>,
     VariantProps<typeof appSpinnerVariants>,
     VariantProps<typeof appLoaderVariants> {
   render?: React.ReactElement;
