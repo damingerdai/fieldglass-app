@@ -4,6 +4,9 @@ import { Card, CardContent, CardHeader } from '@/components/ui/card';
 export default function Loading() {
   return (
     <div className="p-4 md:p-8 space-y-8 max-w-7xl mx-auto">
+      <span role="status" className="sr-only">
+        Loading dashboard...
+      </span>
       <div className="flex flex-col gap-2">
         <Skeleton className="h-9 w-48" />
         <Skeleton className="h-5 w-64" />

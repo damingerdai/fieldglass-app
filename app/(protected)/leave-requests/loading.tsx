@@ -3,6 +3,9 @@ import { Skeleton } from '@/components/ui/skeleton';
 export default function Loading() {
   return (
     <div className="p-4 md:p-10 space-y-10 max-w-7xl mx-auto bg-white">
+      <span role="status" className="sr-only">
+        Loading leave requests...
+      </span>
       <div className="flex items-center justify-between border-b border-slate-50 pb-8">
         <div className="space-y-2">
           <Skeleton className="h-8 w-48 bg-slate-100" />

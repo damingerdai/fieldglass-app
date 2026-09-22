@@ -4,6 +4,9 @@ import { Card, CardContent, CardHeader } from '@/components/ui/card';
 export default function Loading() {
   return (
     <div className="max-w-7xl mx-auto space-y-8 p-2 lg:p-6">
+      <span role="status" className="sr-only">
+        Loading leave entitlements...
+      </span>
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div className="space-y-2">
           <Skeleton className="h-9 w-64" />
