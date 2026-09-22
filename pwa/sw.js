@@ -1,15 +1,19 @@
-const VERSION = 'v1';
+// Replaced with the commit SHA or a UUID by scripts/generate-sw.mjs.
+const VERSION = '__PWA_BUILD_VERSION__';
 const STATIC_CACHE = `fieldglass-static-${VERSION}`;
 const PAGES_CACHE = `fieldglass-pages-${VERSION}`;
 const OFFLINE_URL = '/offline';
 
 self.addEventListener('install', event => {
   event.waitUntil(
-    caches
-      .open(PAGES_CACHE)
-      .then(cache => cache.addAll([OFFLINE_URL]))
-      .then(() => self.skipWaiting())
+    caches.open(PAGES_CACHE).then(cache => cache.addAll([OFFLINE_URL]))
   );
+});
+
+self.addEventListener('message', event => {
+  if (event.data?.type === 'SKIP_WAITING') {
+    event.waitUntil(self.skipWaiting());
+  }
 });
 
 self.addEventListener('activate', event => {
@@ -19,7 +23,13 @@ self.addEventListener('activate', event => {
       .then(keys =>
         Promise.all(
           keys
-            .filter(key => key !== STATIC_CACHE && key !== PAGES_CACHE)
+            .filter(
+              key =>
+                (key.startsWith('fieldglass-static-') ||
+                  key.startsWith('fieldglass-pages-')) &&
+                key !== STATIC_CACHE &&
+                key !== PAGES_CACHE
+            )
             .map(key => caches.delete(key))
         )
       )
