@@ -5,20 +5,17 @@ import {
   SidebarGroup,
   SidebarGroupContent,
   SidebarGroupLabel,
-  SidebarMenu,
-  SidebarMenuItem
+  SidebarMenu
 } from './ui/sidebar';
-import { SidebarMenuButton } from './app-sidebar-button';
 import {
   CalendarCheck2,
-  ChevronRight,
   LayoutDashboard,
   SendHorizontal,
+  Settings,
   UserRound
 } from 'lucide-react';
 import Link from 'next/link';
-import { cn } from '@/lib/utils';
-import { usePathname } from 'next/navigation';
+import { AsideItem } from '@/components/aside-item';
 
 const navItems = [
   { title: 'Dashboard', href: '/dashboard', icon: LayoutDashboard },
@@ -27,8 +24,12 @@ const navItems = [
     href: '/leave-entitlements',
     icon: CalendarCheck2
   },
-  { title: 'My Requests', href: '/leave-requests', icon: SendHorizontal },
-  { title: 'Profile', href: '/profile', icon: UserRound }
+  { title: 'My Requests', href: '/leave-requests', icon: SendHorizontal }
+];
+
+const footerItems = [
+  { title: 'Profile', href: '/profile', icon: UserRound },
+  { title: 'Settings', href: '/settings', icon: Settings }
 ];
 
 interface AsideProps {
@@ -36,77 +37,54 @@ interface AsideProps {
 }
 
 export const Aside: React.FC<AsideProps> = ({ onNavigate }) => {
-  const pathname = usePathname();
   return (
-    <div className="flex flex-col h-full w-full bg-white/80 backdrop-blur-md">
-      <SidebarGroup>
+    <div className="flex flex-col justify-between h-full w-full bg-white/80 backdrop-blur-md">
+      <SidebarGroup className="border-b pb-6">
         <SidebarGroupLabel className="px-4 text-[11px] font-bold uppercase tracking-widest text-slate-400 mb-4">
           Main Menu
         </SidebarGroupLabel>
         <SidebarGroupContent className="px-2">
           <SidebarMenu className="gap-1">
-            {navItems.map(item => {
-              const isActive =
-                pathname === item.href || pathname.startsWith(`${item.href}/`);
-
-              return (
-                <SidebarMenuItem key={item.href}>
-                  <SidebarMenuButton
-                    render={
-                      <Link
-                        href={item.href}
-                        onClick={onNavigate}
-                        className="w-full flex items-center"
-                      />
-                    }
-                    isActive={isActive}
-                    className={cn(
-                      'group relative flex items-center gap-3 px-3 py-6 rounded-xl transition-all duration-300',
-                      isActive
-                        ? 'bg-[#F4EEFC] text-[#7C3AED] shadow-sm shadow-purple-100/50'
-                        : 'text-slate-500 hover:bg-slate-50 hover:text-slate-900'
-                    )}
-                  >
-                    <div
-                      className={cn(
-                        'flex items-center justify-center p-1.5 rounded-lg transition-colors',
-                        isActive
-                          ? 'bg-white shadow-sm'
-                          : 'group-hover:text-slate-900'
-                      )}
-                    >
-                      <item.icon size={18} strokeWidth={isActive ? 2.5 : 2} />
-                    </div>
-
-                    <span
-                      className={cn(
-                        'ml-1 font-medium text-[14px] transition-all',
-                        isActive ? 'translate-x-0.5' : ''
-                      )}
-                    >
-                      {item.title}
-                    </span>
-
-                    {isActive && (
-                      <ChevronRight className="ml-auto w-4 h-4 opacity-50 animate-in slide-in-from-left-2 duration-300" />
-                    )}
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
-              );
-            })}
+            {navItems.map(item => (
+              <AsideItem
+                key={item.title}
+                title={item.title}
+                icon={item.icon}
+                href={item.href}
+                onNavigate={onNavigate}
+              />
+            ))}
           </SidebarMenu>
         </SidebarGroupContent>
       </SidebarGroup>
-      <Link
-        href="/premium-upgrade"
-        onClick={onNavigate}
-        className="mt-auto p-4 mx-4 mb-6 rounded-2xl bg-gradient-to-br from-[#7C3AED]/5 to-[#F4EEFC] border border-[#F4EEFC]"
-      >
-        <p className="text-[12px] font-semibold text-[#7C3AED]">Premium Plan</p>
-        <p className="text-[11px] text-[#7C3AED]/60">
-          Manage leave efficiently.
-        </p>
-      </Link>
+
+      <SidebarGroup>
+        <SidebarGroupContent className="px-2 pb-2">
+          <SidebarMenu className="gap-1">
+            {footerItems.map(item => (
+              <AsideItem
+                key={item.title}
+                title={item.title}
+                icon={item.icon}
+                href={item.href}
+                onNavigate={onNavigate}
+              />
+            ))}
+          </SidebarMenu>
+        </SidebarGroupContent>
+        <Link
+          href="/premium-upgrade"
+          onClick={onNavigate}
+          className="mt-auto p-4 mx-4 mb-6 rounded-2xl bg-linear-to-br from-[#7C3AED]/5 to-[#F4EEFC] border border-[#F4EEFC]"
+        >
+          <p className="text-[12px] font-semibold text-[#7C3AED]">
+            Premium Plan
+          </p>
+          <p className="text-[11px] text-[#7C3AED]/60">
+            Manage leave efficiently.
+          </p>
+        </Link>
+      </SidebarGroup>
     </div>
   );
 };
