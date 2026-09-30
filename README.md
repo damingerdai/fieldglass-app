@@ -1,4 +1,31 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Fieldglass
+
+同一仓库维护 Next.js 网站和 Flutter iOS/Android 客户端，共用 Supabase 后端。
+
+## Repository layout
+
+```text
+app/, components/, ...  # Next.js Web（仓库根目录）
+apps/mobile/           # Flutter iOS / Android
+db/                   # 共用数据库 migrations
+```
+
+Web 保留根目录结构及现有 Vercel 配置。Flutter 使用自己的 `pubspec.yaml` 和
+`pubspec.lock` 管理依赖，通过根目录 scripts 统一启动；无需为 Dart 引入 Bun
+workspace、Turborepo 或 Melos。Biome 和 TypeScript 排除 Flutter 目录，移动端使用
+Dart formatter、Flutter analyzer 和 Flutter tests。
+
+### Mobile quick start
+
+```bash
+bun run mobile:setup
+cp apps/mobile/.env.example apps/mobile/.env
+# 填入 Supabase URL 和公开 key 后启动
+bun run mobile:dev
+```
+
+连接真实账号、平台环境和构建步骤见 [移动端说明](apps/mobile/README.md)。
+
 
 ## Getting Started
 

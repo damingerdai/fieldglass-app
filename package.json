@@ -15,7 +15,12 @@
     "check:fix": "biome check --write .",
     "check-branch": "validate-branch-name",
     "ci": "biome ci .",
-    "prepare": "is-ci && husky"
+    "prepare": "is-ci && husky",
+    "mobile:setup": "cd apps/mobile && flutter pub get",
+    "mobile:dev": "cd apps/mobile && flutter run --dart-define-from-file=.env",
+    "mobile:analyze": "cd apps/mobile && flutter analyze",
+    "mobile:test": "cd apps/mobile && flutter test",
+    "mobile:format": "cd apps/mobile && dart format --output=none --set-exit-if-changed lib test"
   },
   "dependencies": {
     "@base-ui/react": "^1.8.0",

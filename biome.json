@@ -15,7 +15,8 @@
       "!!**/.codex",
       "!!**/.migration",
       "!!**/public",
-      "!!**/components/ui/"
+      "!!**/components/ui/",
+      "!!**/apps/mobile"
     ]
   },
   "formatter": {

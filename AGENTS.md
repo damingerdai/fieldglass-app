@@ -63,3 +63,13 @@ Required in `.env.local`:
 - `CRON_SECRET` — Bearer token checked by `/api/cron`
 - `NEXT_PUBLIC_SITE_URL` — base URL for redirects and email links
 - Resend API key for transactional email
+
+
+## Flutter Mobile
+
+- `apps/mobile/` is the Flutter iOS/Android client in this polyglot monorepo. Next.js remains at the repository root; keep existing Web/Vercel paths intact.
+- Mobile dependencies use `pubspec.yaml` and the committed `pubspec.lock`. Run root scripts `mobile:setup`, `mobile:dev`, `mobile:analyze`, `mobile:test`, and `mobile:format`.
+- Dart formatting follows `dart format`; Biome and TypeScript exclude the mobile project.
+- Keep Flutter features under `apps/mobile/lib/features/`. Use the authenticated Supabase client and RLS for reads; never embed service role credentials.
+- The mobile foundation only reads business data. The Server Actions / `revalidatePath` mutation convention above applies to the Web app; future mobile mutations need an explicit API/RPC design.
+- Mobile configuration uses ignored `apps/mobile/.env` with `--dart-define-from-file`; see the mobile README.
