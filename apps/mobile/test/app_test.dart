@@ -40,10 +40,11 @@ void main() {
     final repository = RetryRepository();
     await tester.pumpWidget(
       MaterialApp(
-        home: DashboardPage(
-          repository: repository,
-          email: 'test@example.com',
-          onSignOut: () async {},
+        home: Scaffold(
+          body: DashboardPage(
+            repository: repository,
+            email: 'test@example.com',
+          ),
         ),
       ),
     );

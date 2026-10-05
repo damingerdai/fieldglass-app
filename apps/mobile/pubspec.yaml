@@ -9,6 +9,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  crypto: ^3.0.7
+  flutter_svg: ^2.3.0
   supabase_flutter: ^2.18.0
 
 dev_dependencies:
@@ -18,3 +20,5 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+  assets:
+    - public/logo.png

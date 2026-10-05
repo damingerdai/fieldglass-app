@@ -17,11 +17,9 @@ class DashboardPage extends StatefulWidget {
     super.key,
     required this.repository,
     required this.email,
-    required this.onSignOut,
   });
   final DashboardRepository repository;
   final String email;
-  final Future<void> Function() onSignOut;
 
   @override
   State<DashboardPage> createState() => _DashboardPageState();
@@ -29,7 +27,6 @@ class DashboardPage extends StatefulWidget {
 
 class _DashboardPageState extends State<DashboardPage> {
   late Future<DashboardData> _data = widget.repository.load();
-  bool _signingOut = false;
 
   Future<void> _refresh() async {
     final request = widget.repository.load();
@@ -43,92 +40,63 @@ class _DashboardPageState extends State<DashboardPage> {
     }
   }
 
-  Future<void> _signOut() async {
-    setState(() => _signingOut = true);
-    try {
-      await widget.onSignOut();
-    } catch (_) {
-      if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('Could not sign out. Please try again.'),
-          ),
-        );
-      }
-    } finally {
-      if (mounted) setState(() => _signingOut = false);
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Fieldglass'),
-        actions: [
-          IconButton(
-            onPressed: _signingOut ? null : _signOut,
-            tooltip: 'Sign out',
-            icon: const Icon(Icons.logout),
-          ),
-        ],
-      ),
-      body: SafeArea(
-        child: RefreshIndicator(
-          onRefresh: _refresh,
-          child: FutureBuilder<DashboardData>(
-            future: _data,
-            builder: (context, snapshot) {
-              return ListView(
-                physics: const AlwaysScrollableScrollPhysics(),
-                padding: const EdgeInsets.all(24),
-                children: [
-                  Center(
-                    child: ConstrainedBox(
-                      constraints: const BoxConstraints(maxWidth: 680),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                        children: [
-                          Text(
-                            'Dashboard',
-                            style: theme.textTheme.headlineLarge?.copyWith(
-                              fontWeight: FontWeight.bold,
-                            ),
+    return SafeArea(
+      child: RefreshIndicator(
+        onRefresh: _refresh,
+        child: FutureBuilder<DashboardData>(
+          future: _data,
+          builder: (context, snapshot) {
+            return ListView(
+              physics: const AlwaysScrollableScrollPhysics(),
+              padding: const EdgeInsets.all(24),
+              children: [
+                Center(
+                  child: ConstrainedBox(
+                    constraints: const BoxConstraints(maxWidth: 680),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        Text(
+                          'Dashboard',
+                          style: theme.textTheme.headlineLarge?.copyWith(
+                            fontWeight: FontWeight.bold,
                           ),
-                          const SizedBox(height: 8),
-                          Text(
-                            'Welcome back, ${widget.email.split('@').first}.',
-                            style: theme.textTheme.titleMedium,
+                        ),
+                        const SizedBox(height: 8),
+                        Text(
+                          'Welcome back, ${widget.email.split('@').first}.',
+                          style: theme.textTheme.titleMedium,
+                        ),
+                        const SizedBox(height: 24),
+                        if (snapshot.connectionState != ConnectionState.done)
+                          const Padding(
+                            padding: EdgeInsets.all(48),
+                            child: Center(child: CircularProgressIndicator()),
+                          )
+                        else if (snapshot.hasError) ...[
+                          const Icon(Icons.cloud_off_outlined, size: 48),
+                          const SizedBox(height: 16),
+                          const Text(
+                            'We could not load your leave data. Check your connection and try again.',
+                            textAlign: TextAlign.center,
                           ),
-                          const SizedBox(height: 24),
-                          if (snapshot.connectionState != ConnectionState.done)
-                            const Padding(
-                              padding: EdgeInsets.all(48),
-                              child: Center(child: CircularProgressIndicator()),
-                            )
-                          else if (snapshot.hasError) ...[
-                            const Icon(Icons.cloud_off_outlined, size: 48),
-                            const SizedBox(height: 16),
-                            const Text(
-                              'We could not load your leave data. Check your connection and try again.',
-                              textAlign: TextAlign.center,
-                            ),
-                            const SizedBox(height: 16),
-                            FilledButton(
-                              onPressed: _refresh,
-                              child: const Text('Try again'),
-                            ),
-                          ] else if (snapshot.hasData)
-                            ..._content(snapshot.data!, theme),
-                        ],
-                      ),
+                          const SizedBox(height: 16),
+                          FilledButton(
+                            onPressed: _refresh,
+                            child: const Text('Try again'),
+                          ),
+                        ] else if (snapshot.hasData)
+                          ..._content(snapshot.data!, theme),
+                      ],
                     ),
                   ),
-                ],
-              );
-            },
-          ),
+                ),
+              ],
+            );
+          },
         ),
       ),
     );

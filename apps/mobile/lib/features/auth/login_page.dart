@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class LoginPage extends StatefulWidget {
@@ -61,10 +62,10 @@ class _LoginPageState extends State<LoginPage> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
-                      Icon(
-                        Icons.spa_rounded,
-                        size: 56,
-                        color: Theme.of(context).colorScheme.primary,
+                      SvgPicture.asset(
+                        '../../public/logo.png',
+                        width: 56,
+                        height: 56,
                       ),
                       const SizedBox(height: 16),
                       Text(

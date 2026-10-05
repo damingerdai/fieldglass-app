@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
-import '../dashboard/dashboard_page.dart';
+import '../navigation/app_shell.dart';
+import '../leave/leave_repository.dart';
 import '../dashboard/dashboard_repository.dart';
 import 'login_page.dart';
+import 'otp_page.dart';
 
 class AuthGate extends StatefulWidget {
   const AuthGate({super.key, required this.client});
@@ -58,10 +60,32 @@ class _SessionGateState extends State<_SessionGate> {
           );
         }
         final aal = snapshot.data;
-        if (snapshot.hasError ||
-            aal == null ||
-            (aal.nextLevel == AuthenticatorAssuranceLevels.aal2 &&
-                aal.currentLevel != AuthenticatorAssuranceLevels.aal2)) {
+        if (!snapshot.hasError &&
+            aal != null &&
+            aal.nextLevel == AuthenticatorAssuranceLevels.aal2 &&
+            aal.currentLevel != AuthenticatorAssuranceLevels.aal2) {
+          return OtpPage(
+            onVerify: (code) async {
+              final factors = await widget.client.auth.mfa.listFactors();
+              final totp = factors.totp.where(
+                (factor) => factor.status == FactorStatus.verified,
+              );
+              if (totp.isEmpty) {
+                throw const AuthException(
+                  'No authenticator is available. Manage two-factor authentication in the web app.',
+                );
+              }
+              await widget.client.auth.mfa.challengeAndVerify(
+                factorId: totp.first.id,
+                code: code,
+              );
+              // The auth event rebuilds this gate with the verified session.
+            },
+            onSignOut: () =>
+                widget.client.auth.signOut(scope: SignOutScope.local),
+          );
+        }
+        if (snapshot.hasError || aal == null) {
           return Scaffold(
             appBar: AppBar(title: const Text('Account verification')),
             body: Center(
@@ -71,10 +95,7 @@ class _SessionGateState extends State<_SessionGate> {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Text(
-                      snapshot.hasError
-                          ? 'Could not verify your session. Sign out and try again.'
-                          : 'This account requires two-factor authentication. '
-                                'Please use the web app for now.',
+                      'Could not verify your session. Sign out and try again.',
                     ),
                     const SizedBox(height: 24),
                     FilledButton(
@@ -101,9 +122,13 @@ class _SessionGateState extends State<_SessionGate> {
             ),
           );
         }
-        return DashboardPage(
-          repository: _repository,
+        return AppShell(
+          dashboardRepository: _repository,
+          leaveRepository: SupabaseLeaveRepository(widget.client),
           email: widget.client.auth.currentUser?.email ?? '',
+          avatarUrl:
+              widget.client.auth.currentUser?.userMetadata?['avatar_url']
+                  as String?,
           onSignOut: () =>
               widget.client.auth.signOut(scope: SignOutScope.local),
         );
