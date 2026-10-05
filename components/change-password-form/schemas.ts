@@ -11,7 +11,8 @@ export const changePasswordSchema = z
         /^(?=.*[a-zA-Z])(?=.*\d)/,
         'Password must contain both letters and numbers'
       ),
-    confirmPassword: z.string()
+    confirmPassword: z.string(),
+    code: z.string()
   })
   .refine(data => data.password === data.confirmPassword, {
     message: "Passwords don't match",

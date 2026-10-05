@@ -1,7 +1,7 @@
 'use client';
 
 import * as React from 'react';
-import { cn } from 'cn';
+import { cn } from '@/lib/utils';
 import { OTPInput, OTPInputContext } from 'input-otp';
 import { MinusIcon } from 'lucide-react';
 
@@ -16,7 +16,7 @@ function InputOTP({
     <OTPInput
       data-slot="input-otp"
       containerClassName={cn(
-        'cn-input-otp flex items-center has-disabled:opacity-50',
+        'cn-input-otp flex items-center gap-2 has-disabled:opacity-50',
         containerClassName
       )}
       spellCheck={false}
@@ -30,10 +30,7 @@ function InputOTPGroup({ className, ...props }: React.ComponentProps<'div'>) {
   return (
     <div
       data-slot="input-otp-group"
-      className={cn(
-        'flex items-center rounded-lg has-aria-invalid:border-destructive has-aria-invalid:ring-3 has-aria-invalid:ring-destructive/20 dark:has-aria-invalid:ring-destructive/40',
-        className
-      )}
+      className={cn('flex min-w-0 items-center gap-2', className)}
       {...props}
     />
   );
@@ -53,8 +50,9 @@ function InputOTPSlot({
     <div
       data-slot="input-otp-slot"
       data-active={isActive}
+      data-filled={!!char}
       className={cn(
-        'relative flex size-8 items-center justify-center border-y border-r border-input text-sm transition-all outline-none first:rounded-l-lg first:border-l last:rounded-r-lg aria-invalid:border-destructive data-[active=true]:z-10 data-[active=true]:border-ring data-[active=true]:ring-3 data-[active=true]:ring-ring/50 data-[active=true]:aria-invalid:border-destructive data-[active=true]:aria-invalid:ring-destructive/20 dark:bg-input/30 dark:data-[active=true]:aria-invalid:ring-destructive/40',
+        'relative flex size-9 shrink-0 items-center justify-center rounded-md border border-input bg-muted/40 text-base md:text-sm tabular-nums shadow-xs outline-none transition-[background-color,border-color,box-shadow] hover:bg-muted/70 data-[filled=true]:bg-background data-[active=true]:border-ring data-[active=true]:bg-background data-[active=true]:ring-3 data-[active=true]:ring-ring/20 aria-invalid:border-destructive aria-invalid:text-destructive data-[active=true]:aria-invalid:ring-destructive/20 motion-reduce:transition-none',
         className
       )}
       {...props}

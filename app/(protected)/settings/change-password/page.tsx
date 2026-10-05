@@ -1,3 +1,4 @@
+import { createClient } from '@/utils/supabase/server';
 import { ArrowLeft } from 'lucide-react';
 import Link from 'next/link';
 
@@ -15,7 +16,14 @@ export const metadata = {
   title: 'Change Password'
 };
 
-export default function ChangePasswordPage() {
+export default async function ChangePasswordPage() {
+  const supabase = await createClient();
+  const { data, error } = await supabase.auth.mfa.listFactors();
+  if (error) {
+    throw new Error('Unable to load authentication settings');
+  }
+  const requiresOtp = data.totp.some(factor => factor.status === 'verified');
+
   return (
     <div className="mx-auto max-w-xl space-y-8 p-4 md:p-8">
       <div className="space-y-4">
@@ -46,7 +54,7 @@ export default function ChangePasswordPage() {
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <ChangePasswordForm />
+          <ChangePasswordForm requiresOtp={requiresOtp} />
         </CardContent>
       </Card>
     </div>
