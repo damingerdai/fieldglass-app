@@ -6,6 +6,19 @@ import { toast } from 'sonner';
 const UPDATE_INTERVAL = 60 * 60 * 1000;
 const UPDATE_TOAST_ID = 'pwa-update';
 
+type ToastOptions = NonNullable<Parameters<typeof toast.info>[1]>;
+
+const SERVICE_WORKER_TOAST_CLASS_NAMES = {
+  toast:
+    '!flex-wrap !items-start !gap-x-2 !border-border !bg-popover !text-popover-foreground !shadow-lg sm:!flex-nowrap sm:!items-center',
+  title: '!text-popover-foreground',
+  description: '!text-muted-foreground',
+  actionButton:
+    '!order-last !ml-6 !mt-2 !h-9 !w-[calc(100%-1.5rem)] !justify-center !rounded-md !bg-primary !px-3 !text-primary-foreground hover:!bg-primary/90 focus-visible:!ring-2 focus-visible:!ring-ring sm:!ml-auto sm:!mt-0 sm:!w-auto',
+  info: '!border-primary/30',
+  error: '!border-destructive/30'
+} satisfies NonNullable<ToastOptions['classNames']>;
+
 export function RegisterSW() {
   useEffect(() => {
     if (process.env.NODE_ENV !== 'production') return;
@@ -32,6 +45,7 @@ export function RegisterSW() {
         id: UPDATE_TOAST_ID,
         description: 'Save your changes before updating.',
         duration: Number.POSITIVE_INFINITY,
+        classNames: SERVICE_WORKER_TOAST_CLASS_NAMES,
         action: {
           label: 'Update now',
           onClick: () => {
